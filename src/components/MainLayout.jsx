@@ -174,7 +174,7 @@ const MainLayout = () => {
             />
             <div className="d-flex align-items-center gap-3 ">
               <div className="position-relative">
-                <Badge count={5} color="yellow">
+                <Badge size="small" count={5} color="yellow">
                   <IoMdNotificationsOutline className="fs-3" />
                 </Badge>
               </div>
