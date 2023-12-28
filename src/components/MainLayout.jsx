@@ -142,7 +142,7 @@ const MainLayout = () => {
                   {
                     key: "blog-categories-list",
                     icon: <MdCategory className="fs-5" />,
-                    label: "Blog Categories",
+                    label: "Blog Categories List",
                   },
                 ],
               },
