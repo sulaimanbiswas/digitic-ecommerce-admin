@@ -199,8 +199,7 @@ const MainLayout = () => {
             style={{
               margin: "24px 16px",
               padding: 24,
-              minHeight: "calc(100vh - 112px)",
-              background: colorBgContainer,
+              minHeight: "100vh",
               borderRadius: borderRadiusLG,
             }}
           >

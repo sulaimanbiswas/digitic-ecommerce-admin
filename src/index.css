@@ -18,7 +18,7 @@
 
 .ant-layout-sider {
   overflow-y: auto !important;
-  max-height: 100vh !important;
+  max-height: 100% !important;
   flex: 0 0 250px !important;
   max-width: 250px !important;
   min-width: 250px !important;
@@ -47,25 +47,32 @@
   display: block;
 }
 
-main {
-  overflow-y: auto;
-  background-color: transparent !important;
-}
-
-.ant-layout-header * {
-  line-height: normal;
-}
-.ant-layout-header .user-name{
-  font-size: 14px;
-} 
-.ant-layout-header .user-email{
-  font-size: 13px;
-}
-
-.ant-menu-item-selected{
+.ant-menu-item-selected {
   border-radius: 0 !important;
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
   -ms-border-radius: 0 !important;
   -o-border-radius: 0 !important;
+}
+
+main {
+  overflow-y: auto;
+  background-color: transparent !important;
+  margin: 0 0 0 16px !important;
+  height: calc(100vh - 64px) !important;
+}
+
+main::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.ant-layout-header * {
+  line-height: normal;
+}
+.ant-layout-header .user-name {
+  font-size: 14px;
+}
+.ant-layout-header .user-email {
+  font-size: 13px;
 }
