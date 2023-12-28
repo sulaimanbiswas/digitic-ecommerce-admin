@@ -4,7 +4,21 @@ import Dashboard from "../pages/Dashboard";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import Login from "../pages/auth/Login";
 import ResetPassword from "../pages/auth/ResetPassword";
+import AddBlog from "../pages/blog/AddBlog";
+import AddBlogCategory from "../pages/blog/AddBlogCategory";
+import BlogCategoriesList from "../pages/blog/BlogCategoriesList";
+import BlogLIst from "../pages/blog/BlogLIst";
+import BrandsList from "../pages/catalog/Brand/BrandsList";
+import AddBrand from "../pages/catalog/Brand/addBrand";
+import AddCategory from "../pages/catalog/category/addCategory";
+import CategoriesList from "../pages/catalog/category/categoriesList";
+import AddColor from "../pages/catalog/color/addColor";
+import ColorList from "../pages/catalog/color/colorList";
+import AddProduct from "../pages/catalog/products/addProduct";
+import ProductsList from "../pages/catalog/products/productsList";
+import Customers from "../pages/customer/Customers";
 import Enquires from "../pages/enquiry/Enquires";
+import Orders from "../pages/order/Orders";
 
 const router = createBrowserRouter([
   {
@@ -29,59 +43,59 @@ const router = createBrowserRouter([
       },
       {
         path: "customers",
-        element: <h1>Customers</h1>,
+        element: <Customers />,
       },
       {
         path: "add-product",
-        element: <h1>Add Product</h1>,
+        element: <AddProduct />,
       },
       {
         path: "products-list",
-        element: <h1>Products</h1>,
+        element: <ProductsList />,
       },
       {
         path: "add-brand",
-        element: <h1>Add Brand</h1>,
+        element: <AddBrand />,
       },
       {
         path: "brands-list",
-        element: <h1>Brands</h1>,
+        element: <BrandsList />,
       },
       {
         path: "add-category",
-        element: <h1>Add Category</h1>,
+        element: <AddCategory />,
       },
       {
         path: "categories-list",
-        element: <h1>Categories</h1>,
+        element: <CategoriesList />,
       },
       {
         path: "add-color",
-        element: <h1>Add Color</h1>,
+        element: <AddColor />,
       },
       {
         path: "colors-list",
-        element: <h1>Colors</h1>,
+        element: <ColorList />,
       },
       {
         path: "orders",
-        element: <h1>Orders</h1>,
+        element: <Orders />,
       },
       {
         path: "add-blog",
-        element: <h1>Add Blog</h1>,
+        element: <AddBlog />,
       },
       {
         path: "blogs-list",
-        element: <h1>Blogs List</h1>,
+        element: <BlogLIst />,
       },
       {
         path: "add-blog-category",
-        element: <h1>Add Blog Category</h1>,
+        element: <AddBlogCategory />,
       },
       {
         path: "blog-categories-list",
-        element: <h1>Blog Categories List</h1>,
+        element: <BlogCategoriesList />,
       },
       {
         path: "enquiries",
