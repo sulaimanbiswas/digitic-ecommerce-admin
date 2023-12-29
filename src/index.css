@@ -76,3 +76,7 @@ main::-webkit-scrollbar {
 .ant-layout-header .user-email {
   font-size: 13px;
 }
+.ql-container{
+  background-color: white;
+  height: 300px !important;
+}
