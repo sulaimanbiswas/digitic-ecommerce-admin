@@ -24,10 +24,12 @@
   min-width: 250px !important;
   width: 250px !important;
 }
+
 .ant-layout-sider::-webkit-scrollbar {
   width: 0px;
   background: transparent;
 }
+
 .ant-layout-sider-collapsed {
   flex: 0 0 80px !important;
   max-width: 80px !important;
@@ -70,12 +72,15 @@ main::-webkit-scrollbar {
 .ant-layout-header * {
   line-height: normal;
 }
+
 .ant-layout-header .user-name {
   font-size: 14px;
 }
+
 .ant-layout-header .user-email {
   font-size: 13px;
 }
+
 .ql-container{
   background-color: white;
   height: 300px !important;
