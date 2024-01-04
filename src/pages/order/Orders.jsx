@@ -30,7 +30,7 @@ const Orders = () => {
   }
   return (
     <>
-      <h3 className="mb-4">Orders</h3>
+      <h3 className="mb-4 title">Orders</h3>
       <Table columns={columns} dataSource={data} />;
     </>
   );

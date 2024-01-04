@@ -3,7 +3,7 @@ import CustomInput from "../../components/CustomInput";
 const AddBlogCategory = () => {
   return (
     <div>
-      <h3 className="mb-4">Add Blog Category</h3>
+      <h3 className="mb-4 title">Add Blog Category</h3>
       <div className="">
         <form action="" method="get" className="d-flex flex-column">
           <CustomInput

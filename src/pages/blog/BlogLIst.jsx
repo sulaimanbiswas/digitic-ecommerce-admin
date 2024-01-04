@@ -30,7 +30,7 @@ const BlogLIst = () => {
   }
   return (
     <>
-      <h3 className="mb-4">BlogLIst</h3>
+      <h3 className="mb-4 title">BlogLIst</h3>
       <Table columns={columns} dataSource={data} />;
     </>
   );

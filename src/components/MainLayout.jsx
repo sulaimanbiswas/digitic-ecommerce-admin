@@ -17,7 +17,7 @@ import {
 } from "react-icons/md";
 import { PiUsersThreeDuotone } from "react-icons/pi";
 import { TbBrandDatabricks } from "react-icons/tb";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -172,13 +172,18 @@ const MainLayout = () => {
                 height: 64,
               }}
             />
-            <div className="d-flex align-items-center gap-3 ">
+            <div className="d-flex align-items-center gap-3 dropdown">
               <div className="position-relative">
                 <Badge size="small" count={5} color="yellow">
                   <IoMdNotificationsOutline className="fs-3" />
                 </Badge>
               </div>
-              <div className="d-flex align-items-center gap-3">
+              <div
+                className="d-flex align-items-center gap-3 dropdown-toggle"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
                 <div className="">
                   <img
                     src="/user.png"
@@ -193,6 +198,18 @@ const MainLayout = () => {
                   <p className="mb-0 user-email">admin@gmail.com</p>
                 </div>
               </div>
+              <ul className="dropdown-menu">
+                <li>
+                  <Link className="dropdown-item" to="#">
+                    View Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="#">
+                    Sign Out
+                  </Link>
+                </li>
+              </ul>
             </div>
           </Header>
           <Content

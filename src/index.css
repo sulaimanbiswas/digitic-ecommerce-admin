@@ -1,3 +1,13 @@
+:root{
+  --color-212529: #212529;
+  --color-ffd333: #ffd333;
+  --color-47ad24: #47ad24;
+  --color-e52e2e: #e52e2e;
+  --color-828599: #828599;
+  --color-3d464d: #ed464d;
+  --color-ced4da: #ced4da;
+}
+
 .body {
   font-family: Roboto, sans-serif;
 }
@@ -14,6 +24,44 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.text-green {
+  color: var(--color-47ad24);
+  font-size: 14px;
+  font-family: Roboto;
+}
+
+.text-red {
+  color: var(--color-e52e2e);
+  font-size: 14px;
+  font-family: Roboto;
+}
+
+.form-control {
+  box-shadow: none !important;
+  border-color: var(--color-ced4da) !important;
+}
+
+.title{
+  font-size: 28px;
+  font-weight: 500;
+  font-family: Roboto !important;
+  color: var(--color-212529);
+}
+
+.sub-title{
+  font-size: 24px;
+  font-weight: 500;
+  font-family: Roboto !important;
+  color: var(--color-212529);
+}
+
+.description{
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Roboto !important;
+  color: var(--color-828599);
 }
 
 .ant-layout-sider {

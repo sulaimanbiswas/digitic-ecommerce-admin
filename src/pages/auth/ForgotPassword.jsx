@@ -8,7 +8,7 @@ const ForgotPassword = () => {
       style={{ background: "#ffd333", minHeight: "100vh" }}
     >
       <div className="my-5 w-25 bg-white rounded-3 mx-auto p-4">
-        <h3 className="text-center">Forgot Password</h3>
+        <h3 className="text-center title">Forgot Password</h3>
         <p className="text-center">
           {`Enter your email address below and we'll send you a link to reset your password.`}
         </p>
