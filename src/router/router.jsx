@@ -22,7 +22,7 @@ import Orders from "../pages/order/Orders";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/admin/login",
     element: <Login />,
   },
   {

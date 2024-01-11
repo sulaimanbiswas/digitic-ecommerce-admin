@@ -1,18 +1,28 @@
 import { Input } from "antd";
 
-const CustomInput = ({ type, label, i_id, i_class, required }) => {
+const CustomInput = ({
+  type,
+  name,
+  label,
+  i_id,
+  i_class,
+  value,
+  onChange,
+  onBlur,
+}) => {
   return (
-    <div className="form-floating mb-3">
+    <div className="form-floating mt-3">
       <Input
         type={type}
+        name={name}
         className={`form-control ${i_class}`}
         id={i_id}
         placeholder={label}
-        required={required}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
       />
-      <label htmlFor={i_id}>
-        {label} {required ? <span className="text-danger">*</span> : ""}
-      </label>
+      <label htmlFor={i_id}>{label}</label>
     </div>
   );
 };

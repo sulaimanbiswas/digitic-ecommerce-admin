@@ -133,3 +133,9 @@ main::-webkit-scrollbar {
   background-color: white;
   height: 300px !important;
 }
+
+.error {
+  color: var(--color-e52e2e);
+  font-size: 12px;
+  font-family: Roboto;
+}
