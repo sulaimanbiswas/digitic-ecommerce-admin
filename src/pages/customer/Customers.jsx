@@ -1,33 +1,59 @@
 import { Table } from "antd";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../../features/customer/customerSlice";
+
+const columns = [
+  {
+    title: "SL",
+    dataIndex: "key",
+    defaultSortOrder: "descend",
+    sorter: (a, b) => a.key - b.key,
+  },
+  {
+    title: "Name",
+    dataIndex: "name",
+    sorter: (a, b) => a.name.length - b.name.length,
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
+  },
+
+  {
+    title: "Mobile",
+    dataIndex: "mobile",
+  },
+
+  {
+    title: "Status",
+    dataIndex: "status",
+    sorter: (a, b) => a.status.length - b.status.length,
+  },
+];
 
 const Customers = () => {
-  const columns = [
-    {
-      title: "SL",
-      dataIndex: "key",
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-    },
-    {
-      title: "Product",
-      dataIndex: "product",
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-    },
-  ];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    document.title = "Customers - Admin";
+    dispatch(getUsers());
+  }, [dispatch]);
+
+  const customerState = useSelector((state) => state.customer.customers);
+
   const data = [];
-  for (let i = 0; i < 46; i++) {
-    data.push({
-      key: i,
-      name: `Edward King ${i}`,
-      product: 32,
-      status: `London, Park Lane no. ${i}`,
-    });
-  }
+  customerState.forEach((customer, index) => {
+    if (customer.role !== "admin") {
+      data.push({
+        key: index + 1,
+        name: customer.firstName + " " + customer.lastName,
+        email: customer.email,
+        mobile: customer.mobile,
+        status: customer.status,
+      });
+    }
+  });
+
   return (
     <>
       <h3 className="mb-4 title">Customers</h3>
