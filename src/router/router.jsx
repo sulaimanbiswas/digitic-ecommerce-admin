@@ -7,15 +7,15 @@ import ResetPassword from "../pages/auth/ResetPassword";
 import AddBlog from "../pages/blog/AddBlog";
 import AddBlogCategory from "../pages/blog/AddBlogCategory";
 import BlogCategoriesList from "../pages/blog/BlogCategoriesList";
-import BlogLIst from "../pages/blog/BlogLIst";
-import BrandsList from "../pages/catalog/Brand/BrandsList";
-import AddBrand from "../pages/catalog/Brand/addBrand";
-import AddCategory from "../pages/catalog/category/addCategory";
-import CategoriesList from "../pages/catalog/category/categoriesList";
-import AddColor from "../pages/catalog/color/addColor";
-import ColorList from "../pages/catalog/color/colorList";
-import AddProduct from "../pages/catalog/products/addProduct";
-import ProductsList from "../pages/catalog/products/productsList";
+import BlogList from "../pages/blog/BlogList";
+import AddBrand from "../pages/catalog/brand/AddBrand";
+import BrandsList from "../pages/catalog/brand/BrandsList";
+import AddCategory from "../pages/catalog/category/AddCategory";
+import CategoriesList from "../pages/catalog/category/CategoriesList";
+import AddColor from "../pages/catalog/color/AddColor";
+import ColorList from "../pages/catalog/color/ColorList";
+import AddProduct from "../pages/catalog/products/AddProduct";
+import ProductsList from "../pages/catalog/products/ProductsList";
 import Customers from "../pages/customer/Customers";
 import Enquires from "../pages/enquiry/Enquires";
 import Orders from "../pages/order/Orders";
@@ -87,7 +87,7 @@ const router = createBrowserRouter([
       },
       {
         path: "blogs-list",
-        element: <BlogLIst />,
+        element: <BlogList />,
       },
       {
         path: "add-blog-category",

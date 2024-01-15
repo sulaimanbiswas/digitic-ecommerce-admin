@@ -12,6 +12,11 @@
   font-family: Roboto, sans-serif;
 }
 
+th {
+  font-family: Roboto, sans-serif;
+  text-align: center !important;
+}
+
 .logo {
   height: 64px;
   margin: 0 4px;

@@ -1,6 +1,6 @@
 import { Table } from "antd";
 
-const BlogLIst = () => {
+const BlogList = () => {
   const columns = [
     {
       title: "SL",
@@ -30,10 +30,10 @@ const BlogLIst = () => {
   }
   return (
     <>
-      <h3 className="mb-4 title">BlogLIst</h3>
+      <h3 className="mb-4 title">BlogList</h3>
       <Table columns={columns} dataSource={data} />;
     </>
   );
 };
 
-export default BlogLIst;
+export default BlogList;
