@@ -7,7 +7,6 @@ const columns = [
   {
     title: "SL",
     dataIndex: "key",
-    defaultSortOrder: "descend",
     sorter: (a, b) => a.key - b.key,
   },
   {
