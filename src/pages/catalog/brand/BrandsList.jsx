@@ -1,37 +1,73 @@
-import { Table } from "antd";
+import { Button, Table } from "antd";
+import { useEffect } from "react";
+import { IoTrashOutline } from "react-icons/io5";
+import { RiEditLine } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import sortBy from "sort-by";
+import { getBrands } from "../../../features/brand/brandSlice";
+
+const columns = [
+  {
+    title: "SL",
+    dataIndex: "key",
+    sorter: (a, b) => a.key - b.key,
+    width: "80px",
+    align: "center",
+  },
+  {
+    title: "Name",
+    dataIndex: "name",
+    sorter: sortBy("name"),
+    ellipsis: true,
+  },
+  {
+    title: "Action",
+    dataIndex: "action",
+    align: "right",
+    width: "100px",
+  },
+];
 
 const BrandsList = () => {
-  const columns = [
-    {
-      title: "SL",
-      dataIndex: "key",
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-    },
-    {
-      title: "Product",
-      dataIndex: "product",
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-    },
-  ];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    document.title = "Brands List - Admin";
+    dispatch(getBrands());
+  }, [dispatch]);
+
+  const brandState = useSelector((state) => state.brand.brands);
+
   const data = [];
-  for (let i = 0; i < 46; i++) {
+  brandState.forEach((brand, index) => {
     data.push({
-      key: i,
-      name: `Edward King ${i}`,
-      product: 32,
-      status: `London, Park Lane no. ${i}`,
+      key: index + 1,
+      name: brand.title,
+      action: (
+        <div className="d-flex gap-1 justify-content-end align-items-center ">
+          <Link to={`/admin/products/${brand._id}`}>
+            <Button
+              type="primary"
+              shape="circle"
+              className="d-flex justify-content-center align-items-center bg-info"
+              icon={<RiEditLine style={{ width: "20px" }} />}
+            />
+          </Link>
+          <Button
+            type="primary"
+            shape="circle"
+            className="d-flex justify-content-center align-items-center bg-danger"
+            icon={<IoTrashOutline style={{ width: "20px" }} />}
+          />
+        </div>
+      ),
     });
-  }
+  });
+
   return (
     <>
       <h3 className="mb-4 title">BrandsList</h3>
-      <Table columns={columns} dataSource={data} />;
+      <Table columns={columns} dataSource={data} />
     </>
   );
 };

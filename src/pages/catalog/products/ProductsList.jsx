@@ -5,6 +5,7 @@ import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 import { RiEditLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import sortBy from "sort-by";
 import { getProducts } from "../../../features/product/productSlice";
 
 const columns = [
@@ -12,21 +13,23 @@ const columns = [
     title: "SL",
     dataIndex: "key",
     sorter: (a, b) => a.key - b.key,
+    width: "80px",
+    align: "center",
   },
   {
     title: "Name",
     dataIndex: "name",
-    sorter: (a, b) => a.name.length - b.name.length,
+    sorter: sortBy("name"),
   },
   {
     title: "Brand",
     dataIndex: "brand",
-    sorter: (a, b) => a.brand.length - b.brand.length,
+    sorter: sortBy("brand"),
   },
   {
     title: "Category",
     dataIndex: "category",
-    sorter: (a, b) => a.category.length - b.category.length,
+    sorter: sortBy("category"),
   },
   {
     title: "Price",
@@ -41,6 +44,8 @@ const columns = [
   {
     title: "Action",
     dataIndex: "action",
+    align: "right",
+    width: "100px",
   },
 ];
 

@@ -1,6 +1,7 @@
 import { Table } from "antd";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import sortBy from "sort-by";
 import { getUsers } from "../../features/customer/customerSlice";
 
 const columns = [
@@ -12,7 +13,7 @@ const columns = [
   {
     title: "Name",
     dataIndex: "name",
-    sorter: (a, b) => a.name.length - b.name.length,
+    sorter: sortBy("name"),
   },
   {
     title: "Email",
@@ -27,7 +28,7 @@ const columns = [
   {
     title: "Status",
     dataIndex: "status",
-    sorter: (a, b) => a.status.length - b.status.length,
+    sorter: sortBy("status"),
   },
 ];
 
