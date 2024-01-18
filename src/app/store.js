@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
 import blogReducer from "../features/blog/blogSlice";
+import blogCategoryReducer from "../features/blogCategory/blogCategorySlice";
 import brandReducer from "../features/brand/brandSlice";
 import categoryReducer from "../features/category/categorySlice";
 import colorReducer from "../features/color/colorSlice";
@@ -16,5 +17,6 @@ export const store = configureStore({
     category: categoryReducer,
     color: colorReducer,
     blog: blogReducer,
+    blogCategory: blogCategoryReducer,
   },
 });

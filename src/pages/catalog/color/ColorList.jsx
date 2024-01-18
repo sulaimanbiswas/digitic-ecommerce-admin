@@ -66,7 +66,7 @@ const ColorList = () => {
   return (
     <>
       <h3 className="mb-4 title">ColorList</h3>
-      <Table columns={columns} dataSource={data} />;
+      <Table columns={columns} dataSource={data} />
     </>
   );
 };

@@ -97,7 +97,7 @@ const ProductsList = () => {
   return (
     <>
       <h3 className="mb-4 title">Products List</h3>
-      <Table columns={columns} dataSource={data} />;
+      <Table columns={columns} dataSource={data} />
     </>
   );
 };
