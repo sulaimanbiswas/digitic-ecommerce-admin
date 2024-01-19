@@ -1,4 +1,4 @@
-import { Table } from "antd";
+import { Select, Table } from "antd";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import sortBy from "sort-by";
@@ -41,6 +41,10 @@ const Customers = () => {
 
   const customerState = useSelector((state) => state.customer.customers);
 
+  const handleChange = (value) => {
+    console.log(value);
+  };
+
   const data = [];
   customerState.forEach((customer, index) => {
     if (customer.role !== "admin") {
@@ -49,7 +53,52 @@ const Customers = () => {
         name: customer.firstName + " " + customer.lastName,
         email: customer.email,
         mobile: customer.mobile,
-        status: customer.status,
+        status: (
+          <Select
+            labelInValue
+            defaultValue={{ value: customer.status, label: customer.status }}
+            style={{ width: 150 }}
+            onChange={handleChange}
+            options={[
+              {
+                value: "active",
+                label: "Active",
+              },
+              {
+                value: "inactive",
+                label: "Inactive",
+              },
+              {
+                value: "pending",
+                label: "Pending",
+              },
+              {
+                value: "deleted",
+                label: "Deleted",
+              },
+              {
+                value: "blocked",
+                label: "Blocked",
+              },
+              {
+                value: "rejected",
+                label: "Rejected",
+              },
+              {
+                value: "banned",
+                label: "Banned",
+              },
+              {
+                value: "suspended",
+                label: "Suspended",
+              },
+              {
+                value: "verified",
+                label: "Verified",
+              },
+            ]}
+          />
+        ),
       });
     }
   });
