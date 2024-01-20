@@ -15,6 +15,7 @@ const columns = [
     width: "80px",
     align: "center",
   },
+  Table.EXPAND_COLUMN,
   {
     title: "Order Id",
     dataIndex: "orderId",
@@ -118,6 +119,7 @@ const Orders = () => {
           <span>{new Date(order.createdAt).toLocaleTimeString("en-US")}</span>
         </>
       ),
+      products: order.products,
       customerInfo: (
         <>
           <span>
@@ -165,7 +167,35 @@ const Orders = () => {
   return (
     <>
       <h3 className="mb-4 title">Orders</h3>
-      <Table columns={columns} dataSource={data} />
+      <Table
+        columns={columns}
+        expandable={{
+          expandedRowRender: (order) => {
+            const columns = [
+              { title: "SL", dataIndex: "key", width: "80px", align: "center" },
+              { title: "Product", dataIndex: "product" },
+              { title: "Price", dataIndex: "price" },
+              { title: "Quantity", dataIndex: "quantity" },
+              { title: "Total", dataIndex: "total" },
+            ];
+            const data = [];
+            order.products.forEach((product, index) => {
+              data.push({
+                key: index + 1,
+                product: product.product.title,
+                price: product.product.price,
+                quantity: product.quantity,
+                total: product.quantity * product.product.price,
+              });
+            });
+            return (
+              <Table columns={columns} dataSource={data} pagination={false} />
+            );
+          },
+          rowExpandable: (record) => record.name !== "Not Expandable",
+        }}
+        dataSource={data}
+      />
     </>
   );
 };
