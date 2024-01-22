@@ -1,14 +1,11 @@
 import axios from "axios";
 import { base_url } from "../../utils/base_url";
-import getUserFromLocalStorage from "../../utils/getUserFromLocalStorage";
+import config from "../../utils/config";
 
 const getUsers = async () => {
   const url = `${base_url}/user/users`;
-  const token = getUserFromLocalStorage().token;
 
-  const response = await axios.get(url, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.get(url, config);
 
   return response.data.data;
 };

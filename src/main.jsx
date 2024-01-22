@@ -12,7 +12,6 @@ import router from "./router/router";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <RouterProvider router={router}>{router.render()}</RouterProvider> */}
       <RouterProvider router={router} />
       <Toaster position="top-center" reverseOrder={false} />
     </Provider>

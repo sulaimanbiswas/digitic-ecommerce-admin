@@ -64,7 +64,7 @@ const ProductsList = () => {
       key: index + 1,
       name: product.title,
       brand: product.brand,
-      category: product.category,
+      category: product.category?.title,
       price: `${product.price}`,
       quantity: product.quantity,
       action: (

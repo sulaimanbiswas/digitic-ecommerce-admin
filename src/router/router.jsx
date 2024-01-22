@@ -50,7 +50,7 @@ const router = createBrowserRouter([
         element: <AddProduct />,
       },
       {
-        path: "products-list",
+        path: "products",
         element: <ProductsList />,
       },
       {
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
         element: <AddBrand />,
       },
       {
-        path: "brands-list",
+        path: "brands",
         element: <BrandsList />,
       },
       {
@@ -66,7 +66,7 @@ const router = createBrowserRouter([
         element: <AddCategory />,
       },
       {
-        path: "categories-list",
+        path: "categories",
         element: <CategoriesList />,
       },
       {
@@ -74,7 +74,7 @@ const router = createBrowserRouter([
         element: <AddColor />,
       },
       {
-        path: "colors-list",
+        path: "colors",
         element: <ColorList />,
       },
       {
@@ -86,7 +86,7 @@ const router = createBrowserRouter([
         element: <AddBlog />,
       },
       {
-        path: "blogs-list",
+        path: "blogs",
         element: <BlogList />,
       },
       {
@@ -94,7 +94,7 @@ const router = createBrowserRouter([
         element: <AddBlogCategory />,
       },
       {
-        path: "blog-categories-list",
+        path: "blog-categories",
         element: <BlogCategoriesList />,
       },
       {

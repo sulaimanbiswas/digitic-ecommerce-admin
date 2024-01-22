@@ -11,7 +11,7 @@ const CustomInput = ({
   onBlur,
 }) => {
   return (
-    <div className="form-floating mt-3">
+    <div className="form-floating">
       <Input
         type={type}
         name={name}

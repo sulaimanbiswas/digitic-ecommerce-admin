@@ -78,7 +78,7 @@ const MainLayout = () => {
                     label: "Add Products",
                   },
                   {
-                    key: "products-list",
+                    key: "products",
                     icon: <MdShoppingCart className="fs-5" />,
                     label: "Products List",
                   },
@@ -88,7 +88,7 @@ const MainLayout = () => {
                     label: "Add Brand",
                   },
                   {
-                    key: "brands-list",
+                    key: "brands",
                     icon: <TbBrandDatabricks className="fs-5" />,
                     label: "Brands List",
                   },
@@ -98,7 +98,7 @@ const MainLayout = () => {
                     label: "Add Category",
                   },
                   {
-                    key: "categories-list",
+                    key: "categories",
                     icon: <BiCategoryAlt className="fs-5" />,
                     label: "Categories List",
                   },
@@ -108,7 +108,7 @@ const MainLayout = () => {
                     label: "Add Color",
                   },
                   {
-                    key: "colors-list",
+                    key: "colors",
                     icon: <MdOutlineInvertColors className="fs-5" />,
                     label: "Colors List",
                   },
@@ -120,7 +120,7 @@ const MainLayout = () => {
                 label: "Orders",
               },
               {
-                key: "blogs",
+                key: "blog",
                 icon: <LiaBlogSolid className="fs-5" />,
                 label: "Blogs",
                 children: [
@@ -130,7 +130,7 @@ const MainLayout = () => {
                     label: "Add Blog",
                   },
                   {
-                    key: "blogs-list",
+                    key: "blogs",
                     icon: <LiaBlogSolid className="fs-5" />,
                     label: "Blogs List",
                   },
@@ -140,7 +140,7 @@ const MainLayout = () => {
                     label: "Add Blog Category",
                   },
                   {
-                    key: "blog-categories-list",
+                    key: "blog-categories",
                     icon: <MdCategory className="fs-5" />,
                     label: "Blog Categories List",
                   },

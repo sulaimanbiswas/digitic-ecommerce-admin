@@ -144,3 +144,12 @@ main::-webkit-scrollbar {
   font-size: 12px;
   font-family: Roboto;
 }
+
+.ant-select-selector{
+  padding: 12px 0.75rem !important;
+  font-size: 1rem !important;
+}
+.ant-select-selection-placeholder{
+  font-size: 1rem !important;
+  color: var(--color-212529) !important;
+}
