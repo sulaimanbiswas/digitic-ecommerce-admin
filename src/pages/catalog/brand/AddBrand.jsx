@@ -50,7 +50,7 @@ const AddBrand = () => {
       <div className="">
         <form
           action=""
-          method="get"
+          method="post"
           onSubmit={formik.handleSubmit}
           className="d-flex flex-column gap-3"
         >
