@@ -10,7 +10,7 @@ const initialState = {
 };
 
 export const getProducts = createAsyncThunk(
-  "products/get-products",
+  "products/getProducts",
   async (thunkAPI) => {
     try {
       return await productService.getProducts();
@@ -21,7 +21,7 @@ export const getProducts = createAsyncThunk(
 );
 
 export const createProduct = createAsyncThunk(
-  "products/create-product",
+  "products/createProduct",
   async (product, thunkAPI) => {
     try {
       return await productService.createProduct(product);

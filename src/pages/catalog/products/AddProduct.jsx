@@ -187,7 +187,6 @@ const AddProduct = () => {
               label="Enter Product Name"
               value={formik.values.title}
               i_id="title"
-              required={true}
               onChange={formik.handleChange("title")}
               onBlur={formik.handleBlur("title")}
             />
