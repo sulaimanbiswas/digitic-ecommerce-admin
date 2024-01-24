@@ -3,6 +3,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Toaster } from "react-hot-toast";
+import "react-quill/dist/quill.snow.css";
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import { store } from "./app/store";

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import blogCategoryService from "./blogCategoryService";
 
 const initialState = {
@@ -30,6 +30,8 @@ export const createBlogCategory = createAsyncThunk(
     }
   }
 );
+
+export const resetState = createAction("blogCategories/resetState");
 
 const blogCategorySlice = createSlice({
   name: "blogCategory",
@@ -67,7 +69,8 @@ const blogCategorySlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.payload;
-      });
+      })
+      .addCase(resetState, () => initialState);
   },
 });
 

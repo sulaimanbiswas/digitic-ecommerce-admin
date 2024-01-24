@@ -53,6 +53,21 @@ const Enquires = () => {
     console.log(value);
   };
 
+  const statusOptions = [
+    {
+      value: "submitted",
+      label: "Submitted",
+    },
+    {
+      value: "in-progress",
+      label: "In Progress",
+    },
+    {
+      value: "resolved",
+      label: "Resolved",
+    },
+  ];
+
   const data = [];
   enquiryState.forEach((enquiry, index) => {
     data.push({
@@ -67,20 +82,7 @@ const Enquires = () => {
           defaultValue={{ value: enquiry.status, label: enquiry.status }}
           style={{ width: 150 }}
           onChange={handleChange}
-          options={[
-            {
-              value: "Submitted",
-              label: "Submitted",
-            },
-            {
-              value: "In Progress",
-              label: "In Progress",
-            },
-            {
-              value: "Resolved",
-              label: "Resolved",
-            },
-          ]}
+          options={statusOptions}
         />
       ),
       action: (

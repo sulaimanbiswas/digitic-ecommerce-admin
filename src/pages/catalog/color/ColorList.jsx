@@ -5,7 +5,6 @@ import { IoTrashOutline } from "react-icons/io5";
 import { RiEditLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import sortBy from "sort-by";
 import { getColors } from "../../../features/color/colorSlice";
 
 const columns = [
@@ -19,8 +18,6 @@ const columns = [
   {
     title: "Name",
     dataIndex: "name",
-    sorter: sortBy("name"),
-    ellipsis: true,
   },
   {
     title: "Action",

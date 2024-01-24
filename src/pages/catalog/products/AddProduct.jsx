@@ -1,5 +1,6 @@
 import { Select } from "antd";
 import { useFormik } from "formik";
+import { GetColorName } from "hex-color-to-color-name";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
@@ -45,7 +46,7 @@ const baseStyle = {
   padding: "20px 0",
   borderWidth: 2,
   borderRadius: 2,
-  borderColor: "#eeeeee",
+  borderColor: "#dddddd",
   borderStyle: "dashed",
   backgroundColor: "#fafafa",
   color: "#bdbdbd",
@@ -110,7 +111,23 @@ const AddProduct = () => {
   const colorOptions = [];
   colorState.forEach((item) => {
     colorOptions.push({
-      label: item.title,
+      label: (
+        <div className="d-flex align-items-center ">
+          <span
+            className=""
+            style={{
+              width: "15px",
+              height: "15px",
+              display: "inline-block",
+              backgroundColor: item.title,
+              marginRight: "10px",
+              border: "1px solid #ddd",
+              borderRadius: "50%",
+            }}
+          ></span>
+          {GetColorName(item.title)}
+        </div>
+      ),
       value: item._id,
     });
   });
@@ -177,6 +194,7 @@ const AddProduct = () => {
       <div className="">
         <form
           action=""
+          method="post"
           onSubmit={formik.handleSubmit}
           className="d-flex flex-column gap-3"
         >
@@ -349,7 +367,7 @@ const AddProduct = () => {
             </div>
             <div {...getRootProps({ style })}>
               <input {...getInputProps()} />
-              <p>
+              <p className="mb-0">
                 Drag &apos;n&apos; drop some files here, or click to select
                 files
               </p>

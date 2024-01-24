@@ -1,23 +1,19 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import uploadService from "./UploadService";
 
 const initialState = {
-  images: [],
-  isError: false,
+  uploads: [],
   isLoading: false,
+  isError: false,
   isSuccess: false,
   message: "",
 };
 
-export const uploadImages = createAsyncThunk(
-  "upload/images",
-  async (data, thunkAPI) => {
+export const uploadImage = createAsyncThunk(
+  "uploads/uploadImage",
+  async (formData, thunkAPI) => {
     try {
-      const formData = new FormData();
-      for (let i = 0; i < data.length; i++) {
-        formData.append("images", data[i]);
-      }
-      return await uploadService.uploadImages(formData);
+      return await uploadService.uploadImage(formData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -25,32 +21,34 @@ export const uploadImages = createAsyncThunk(
 );
 
 export const deleteImage = createAsyncThunk(
-  "delete/images",
-  async (id, thunkAPI) => {
+  "uploads/deleteImage",
+  async (public_id, thunkAPI) => {
     try {
-      return await uploadService.deleteImages(id);
+      return await uploadService.deleteImage(public_id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
 
-export const uploadSlice = createSlice({
+export const resetState = createAction("uploads/resetState");
+
+const uploadSlice = createSlice({
   name: "upload",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(uploadImages.pending, (state) => {
+      .addCase(uploadImage.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(uploadImages.fulfilled, (state, action) => {
+      .addCase(uploadImage.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.images = action.payload;
+        state.uploads = action.payload;
       })
-      .addCase(uploadImages.rejected, (state, action) => {
+      .addCase(uploadImage.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
@@ -63,16 +61,15 @@ export const uploadSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.images = state.images.filter(
-          (image) => image._id !== action.payload._id
-        );
+        state.uploads = action.payload;
       })
       .addCase(deleteImage.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.message = action.payload;
-      });
+      })
+      .addCase(resetState, () => initialState);
   },
 });
 

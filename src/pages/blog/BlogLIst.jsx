@@ -20,19 +20,21 @@ const columns = [
     title: "Name",
     dataIndex: "name",
     sorter: sortBy("name"),
-    ellipsis: true,
+  },
+  {
+    title: "Photo",
+    dataIndex: "photo",
+    width: "100px",
   },
   {
     title: "Category",
     dataIndex: "category",
     sorter: sortBy("category"),
-    ellipsis: true,
   },
   {
     title: "View",
     dataIndex: "view",
     sorter: (a, b) => a.view - b.view,
-    ellipsis: true,
   },
   {
     title: "Action",
@@ -53,10 +55,18 @@ const BlogList = () => {
 
   const data = [];
   blogState.forEach((blog, index) => {
+    console.log(blog);
     data.push({
       key: index + 1,
+      photo: (
+        <img
+          src={blog.images[0].url}
+          alt={blog.title}
+          style={{ width: "100px" }}
+        />
+      ),
       name: blog.title,
-      category: blog.category,
+      category: blog.category.title,
       view: blog.countViews,
       action: (
         <div className="d-flex gap-1 justify-content-end align-items-center ">
