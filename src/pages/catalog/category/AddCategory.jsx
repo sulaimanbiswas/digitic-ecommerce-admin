@@ -78,7 +78,9 @@ const AddCategory = () => {
             ) : null}
           </div>
           <div className="">
-            <button className="btn btn-success py-2 px-4">Add Category</button>
+            <button type="submit" className="btn btn-success py-2 px-4">
+              Add Category
+            </button>
           </div>
         </form>
       </div>

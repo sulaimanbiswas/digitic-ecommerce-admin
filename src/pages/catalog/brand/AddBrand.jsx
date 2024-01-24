@@ -57,8 +57,8 @@ const AddBrand = () => {
           <div className="">
             <CustomInput
               type="text"
+              label="Enter Brand Title"
               name="title"
-              label="Enter Brand Name"
               value={formik.values.title}
               i_id="title"
               onChange={formik.handleChange("title")}

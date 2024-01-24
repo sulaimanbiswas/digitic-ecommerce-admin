@@ -1,4 +1,5 @@
 import { Button, Table } from "antd";
+import { GetColorName } from "hex-color-to-color-name";
 import { useEffect } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 import { RiEditLine } from "react-icons/ri";
@@ -40,9 +41,25 @@ const ColorList = () => {
 
   const data = [];
   colorState.forEach((color, index) => {
+    const colorName = GetColorName(color.title);
+
     data.push({
       key: index + 1,
-      name: color.title,
+      name: (
+        <div className="d-flex align-items-center">
+          <div
+            className="me-2"
+            style={{
+              width: "20px",
+              height: "20px",
+              borderRadius: "50%",
+              backgroundColor: color.title,
+              border: "1px solid #ddd",
+            }}
+          ></div>
+          <span>{colorName}</span>
+        </div>
+      ),
       action: (
         <div className="d-flex gap-1 justify-content-end align-items-center ">
           <Link to={`/admin/products/${color._id}`}>
