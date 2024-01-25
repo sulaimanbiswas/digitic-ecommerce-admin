@@ -6,18 +6,20 @@ import Login from "../pages/auth/Login";
 import ResetPassword from "../pages/auth/ResetPassword";
 import AddBlog from "../pages/blog/AddBlog";
 import AddBlogCategory from "../pages/blog/AddBlogCategory";
-import BlogCategoriesList from "../pages/blog/BlogCategoriesList";
-import BlogList from "../pages/blog/BlogList";
+import BlogCategories from "../pages/blog/BlogCategories";
+import Blogs from "../pages/blog/Blogs";
 import AddBrand from "../pages/catalog/brand/AddBrand";
-import BrandsList from "../pages/catalog/brand/BrandsList";
+import Brands from "../pages/catalog/brand/Brands";
 import AddCategory from "../pages/catalog/category/AddCategory";
-import CategoriesList from "../pages/catalog/category/CategoriesList";
+import Categories from "../pages/catalog/category/Categories";
 import AddColor from "../pages/catalog/color/AddColor";
-import ColorList from "../pages/catalog/color/ColorList";
+import Colors from "../pages/catalog/color/Colors";
 import AddProduct from "../pages/catalog/products/AddProduct";
-import ProductsList from "../pages/catalog/products/ProductsList";
+import Products from "../pages/catalog/products/Products";
 import Customers from "../pages/customer/Customers";
 import Enquires from "../pages/enquiry/Enquires";
+import AddCoupon from "../pages/marketing/AddCoupon";
+import Coupons from "../pages/marketing/Coupons";
 import Orders from "../pages/order/Orders";
 
 const router = createBrowserRouter([
@@ -51,7 +53,7 @@ const router = createBrowserRouter([
       },
       {
         path: "products",
-        element: <ProductsList />,
+        element: <Products />,
       },
       {
         path: "add-brand",
@@ -59,7 +61,7 @@ const router = createBrowserRouter([
       },
       {
         path: "brands",
-        element: <BrandsList />,
+        element: <Brands />,
       },
       {
         path: "add-category",
@@ -67,7 +69,7 @@ const router = createBrowserRouter([
       },
       {
         path: "categories",
-        element: <CategoriesList />,
+        element: <Categories />,
       },
       {
         path: "add-color",
@@ -75,7 +77,7 @@ const router = createBrowserRouter([
       },
       {
         path: "colors",
-        element: <ColorList />,
+        element: <Colors />,
       },
       {
         path: "orders",
@@ -86,8 +88,16 @@ const router = createBrowserRouter([
         element: <AddBlog />,
       },
       {
+        path: "coupons",
+        element: <Coupons />,
+      },
+      {
+        path: "add-coupon",
+        element: <AddCoupon />,
+      },
+      {
         path: "blogs",
-        element: <BlogList />,
+        element: <Blogs />,
       },
       {
         path: "add-blog-category",
@@ -95,7 +105,7 @@ const router = createBrowserRouter([
       },
       {
         path: "blog-categories",
-        element: <BlogCategoriesList />,
+        element: <BlogCategories />,
       },
       {
         path: "enquiries",

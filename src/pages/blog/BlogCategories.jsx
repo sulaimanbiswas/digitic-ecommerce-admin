@@ -1,11 +1,11 @@
 import { Button, Table } from "antd";
-import { GetColorName } from "hex-color-to-color-name";
 import { useEffect } from "react";
 import { IoTrashOutline } from "react-icons/io5";
 import { RiEditLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getColors } from "../../../features/color/colorSlice";
+import sortBy from "sort-by";
+import { getBlogCategories } from "../../features/blogCategory/blogCategorySlice";
 
 const columns = [
   {
@@ -18,6 +18,8 @@ const columns = [
   {
     title: "Name",
     dataIndex: "name",
+    sorter: sortBy("name"),
+    ellipsis: true,
   },
   {
     title: "Action",
@@ -27,39 +29,25 @@ const columns = [
   },
 ];
 
-const ColorList = () => {
+const BlogCategories = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    document.title = "Color List - Admin";
-    dispatch(getColors());
+    document.title = "Blog Categories - Admin";
+    dispatch(getBlogCategories());
   }, [dispatch]);
 
-  const colorState = useSelector((state) => state.color.colors);
+  const blogCategoryState = useSelector(
+    (state) => state.blogCategory.blogCategories
+  );
 
   const data = [];
-  colorState.forEach((color, index) => {
-    const colorName = GetColorName(color.title);
-
+  blogCategoryState.forEach((blogCategory, index) => {
     data.push({
       key: index + 1,
-      name: (
-        <div className="d-flex align-items-center">
-          <div
-            className="me-2"
-            style={{
-              width: "20px",
-              height: "20px",
-              borderRadius: "50%",
-              backgroundColor: color.title,
-              border: "1px solid #ddd",
-            }}
-          ></div>
-          <span>{colorName}</span>
-        </div>
-      ),
+      name: blogCategory.title,
       action: (
         <div className="d-flex gap-1 justify-content-end align-items-center ">
-          <Link to={`/admin/products/${color._id}`}>
+          <Link to={`/admin/blog/categories/${blogCategory._id}`}>
             <Button
               type="primary"
               shape="circle"
@@ -79,10 +67,10 @@ const ColorList = () => {
   });
   return (
     <>
-      <h3 className="mb-4 title">ColorList</h3>
+      <h3 className="mb-4 title">Blog Categories</h3>
       <Table columns={columns} dataSource={data} />
     </>
   );
 };
 
-export default ColorList;
+export default BlogCategories;

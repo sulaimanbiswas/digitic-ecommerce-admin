@@ -1,11 +1,12 @@
 import { Button, Table } from "antd";
 import { useEffect } from "react";
+import { ImEye } from "react-icons/im";
 import { IoTrashOutline } from "react-icons/io5";
 import { RiEditLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import sortBy from "sort-by";
-import { getBlogCategories } from "../../features/blogCategory/blogCategorySlice";
+import { getBlogs } from "../../features/blog/blogSlice";
 
 const columns = [
   {
@@ -19,7 +20,21 @@ const columns = [
     title: "Name",
     dataIndex: "name",
     sorter: sortBy("name"),
-    ellipsis: true,
+  },
+  {
+    title: "Photo",
+    dataIndex: "photo",
+    width: "100px",
+  },
+  {
+    title: "Category",
+    dataIndex: "category",
+    sorter: sortBy("category"),
+  },
+  {
+    title: "View",
+    dataIndex: "view",
+    sorter: (a, b) => a.view - b.view,
   },
   {
     title: "Action",
@@ -29,25 +44,38 @@ const columns = [
   },
 ];
 
-const BlogCategoriesList = () => {
+const Blogs = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    document.title = "Blog Categories List - Admin";
-    dispatch(getBlogCategories());
+    document.title = "Blogs - Admin";
+    dispatch(getBlogs());
   }, [dispatch]);
 
-  const blogCategoryState = useSelector(
-    (state) => state.blogCategory.blogCategories
-  );
+  const blogState = useSelector((state) => state.blog.blogs);
 
   const data = [];
-  blogCategoryState.forEach((blogCategory, index) => {
+  blogState.forEach((blog, index) => {
     data.push({
       key: index + 1,
-      name: blogCategory.title,
+      photo: (
+        <img
+          src={blog.images[0].url}
+          alt={blog.title}
+          style={{ width: "100px" }}
+        />
+      ),
+      name: blog.title,
+      category: blog.category.title,
+      view: blog.countViews,
       action: (
         <div className="d-flex gap-1 justify-content-end align-items-center ">
-          <Link to={`/admin/blog/categories/${blogCategory._id}`}>
+          <Button
+            type="primary"
+            shape="circle"
+            className="d-flex justify-content-center align-items-center"
+            icon={<ImEye style={{ width: "20px" }} />}
+          />
+          <Link to={`/admin/blogs/${blog._id}`}>
             <Button
               type="primary"
               shape="circle"
@@ -67,10 +95,10 @@ const BlogCategoriesList = () => {
   });
   return (
     <>
-      <h3 className="mb-4 title">Blog Categories List</h3>
+      <h3 className="mb-4 title">Blogs</h3>
       <Table columns={columns} dataSource={data} />
     </>
   );
 };
 
-export default BlogCategoriesList;
+export default Blogs;

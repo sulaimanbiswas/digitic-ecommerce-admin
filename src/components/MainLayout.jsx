@@ -3,6 +3,7 @@ import { Badge, Button, Layout, Menu, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Content, Header } from "antd/es/layout/layout";
 import { useState } from "react";
+import { AiOutlineBarChart } from "react-icons/ai";
 import { BiCategoryAlt } from "react-icons/bi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { LiaBlogSolid } from "react-icons/lia";
@@ -16,6 +17,7 @@ import {
   MdShoppingCart,
 } from "react-icons/md";
 import { PiUsersThreeDuotone } from "react-icons/pi";
+import { RiCoupon2Line } from "react-icons/ri";
 import { TbBrandDatabricks } from "react-icons/tb";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
@@ -80,7 +82,7 @@ const MainLayout = () => {
                   {
                     key: "products",
                     icon: <MdShoppingCart className="fs-5" />,
-                    label: "Products List",
+                    label: "Products",
                   },
                   {
                     key: "add-brand",
@@ -90,7 +92,7 @@ const MainLayout = () => {
                   {
                     key: "brands",
                     icon: <TbBrandDatabricks className="fs-5" />,
-                    label: "Brands List",
+                    label: "Brands",
                   },
                   {
                     key: "add-category",
@@ -100,7 +102,7 @@ const MainLayout = () => {
                   {
                     key: "categories",
                     icon: <BiCategoryAlt className="fs-5" />,
-                    label: "Categories List",
+                    label: "Categories",
                   },
                   {
                     key: "add-color",
@@ -110,7 +112,7 @@ const MainLayout = () => {
                   {
                     key: "colors",
                     icon: <MdOutlineInvertColors className="fs-5" />,
-                    label: "Colors List",
+                    label: "Colors",
                   },
                 ],
               },
@@ -118,6 +120,23 @@ const MainLayout = () => {
                 key: "orders",
                 icon: <MdPlaylistAddCheck className="fs-5" />,
                 label: "Orders",
+              },
+              {
+                key: "marketing",
+                icon: <AiOutlineBarChart className="fs-5" />,
+                label: "Marketing",
+                children: [
+                  {
+                    key: "add-coupon",
+                    icon: <RiCoupon2Line className="fs-5" />,
+                    label: "Add Coupon",
+                  },
+                  {
+                    key: "coupons",
+                    icon: <RiCoupon2Line className="fs-5" />,
+                    label: "Coupons",
+                  },
+                ],
               },
               {
                 key: "blog",
@@ -132,7 +151,7 @@ const MainLayout = () => {
                   {
                     key: "blogs",
                     icon: <LiaBlogSolid className="fs-5" />,
-                    label: "Blogs List",
+                    label: "Blogs",
                   },
                   {
                     key: "add-blog-category",
@@ -142,7 +161,7 @@ const MainLayout = () => {
                   {
                     key: "blog-categories",
                     icon: <MdCategory className="fs-5" />,
-                    label: "Blog Categories List",
+                    label: "Blog Categories",
                   },
                 ],
               },

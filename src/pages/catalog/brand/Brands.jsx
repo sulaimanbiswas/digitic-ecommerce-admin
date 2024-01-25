@@ -5,7 +5,7 @@ import { RiEditLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import sortBy from "sort-by";
-import { getCategories } from "../../../features/category/categorySlice";
+import { getBrands } from "../../../features/brand/brandSlice";
 
 const columns = [
   {
@@ -29,23 +29,23 @@ const columns = [
   },
 ];
 
-const CategoriesList = () => {
+const Brands = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    document.title = "Category List - Admin";
-    dispatch(getCategories());
+    document.title = "Brands - Admin";
+    dispatch(getBrands());
   }, [dispatch]);
 
-  const categoryState = useSelector((state) => state.category.categories);
+  const brandState = useSelector((state) => state.brand.brands);
 
   const data = [];
-  categoryState.forEach((category, index) => {
+  brandState.forEach((brand, index) => {
     data.push({
       key: index + 1,
-      name: category.title,
+      name: brand.title,
       action: (
         <div className="d-flex gap-1 justify-content-end align-items-center ">
-          <Link to={`/admin/products/${category._id}`}>
+          <Link to={`/admin/products/${brand._id}`}>
             <Button
               type="primary"
               shape="circle"
@@ -66,10 +66,10 @@ const CategoriesList = () => {
 
   return (
     <>
-      <h3 className="mb-4 title">Categories List</h3>
+      <h3 className="mb-4 title">Brands</h3>
       <Table columns={columns} dataSource={data} />
     </>
   );
 };
 
-export default CategoriesList;
+export default Brands;

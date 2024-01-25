@@ -49,10 +49,10 @@ const columns = [
   },
 ];
 
-const ProductsList = () => {
+const Products = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    document.title = "Products List - Admin";
+    document.title = "Products - Admin";
     dispatch(getProducts());
   }, [dispatch]);
 
@@ -96,10 +96,10 @@ const ProductsList = () => {
 
   return (
     <>
-      <h3 className="mb-4 title">Products List</h3>
+      <h3 className="mb-4 title">Products</h3>
       <Table columns={columns} dataSource={data} />
     </>
   );
 };
 
-export default ProductsList;
+export default Products;
