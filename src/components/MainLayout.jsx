@@ -29,7 +29,9 @@ const MainLayout = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Layout>
+      <Layout
+      // onContextMenu={(e) => e.preventDefault}
+      >
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className="logo text-center">
             <img

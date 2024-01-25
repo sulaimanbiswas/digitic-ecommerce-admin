@@ -45,6 +45,45 @@ const Customers = () => {
     console.log(value);
   };
 
+  const statusOptions = [
+    {
+      value: "active",
+      label: "Active",
+    },
+    {
+      value: "inactive",
+      label: "Inactive",
+    },
+    {
+      value: "pending",
+      label: "Pending",
+    },
+    {
+      value: "deleted",
+      label: "Deleted",
+    },
+    {
+      value: "blocked",
+      label: "Blocked",
+    },
+    {
+      value: "rejected",
+      label: "Rejected",
+    },
+    {
+      value: "banned",
+      label: "Banned",
+    },
+    {
+      value: "suspended",
+      label: "Suspended",
+    },
+    {
+      value: "verified",
+      label: "Verified",
+    },
+  ];
+
   const data = [];
   customerState.forEach((customer, index) => {
     if (customer.role !== "admin") {
@@ -59,44 +98,7 @@ const Customers = () => {
             defaultValue={{ value: customer.status, label: customer.status }}
             style={{ width: 150 }}
             onChange={handleChange}
-            options={[
-              {
-                value: "active",
-                label: "Active",
-              },
-              {
-                value: "inactive",
-                label: "Inactive",
-              },
-              {
-                value: "pending",
-                label: "Pending",
-              },
-              {
-                value: "deleted",
-                label: "Deleted",
-              },
-              {
-                value: "blocked",
-                label: "Blocked",
-              },
-              {
-                value: "rejected",
-                label: "Rejected",
-              },
-              {
-                value: "banned",
-                label: "Banned",
-              },
-              {
-                value: "suspended",
-                label: "Suspended",
-              },
-              {
-                value: "verified",
-                label: "Verified",
-              },
-            ]}
+            options={statusOptions}
           />
         ),
       });

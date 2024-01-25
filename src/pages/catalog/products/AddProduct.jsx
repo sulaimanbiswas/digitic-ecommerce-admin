@@ -349,14 +349,14 @@ const AddProduct = () => {
             ) : null}
           </div>
           <div className="">
-            <div className="d-flex">
+            <div className="d-flex flex-wrap justify-content-center ">
               {imgState.map((file) => {
                 return (
                   <div className="position-relative" key={file.url}>
                     <img
                       src={file.url}
                       alt=""
-                      width="200"
+                      width="190px"
                       style={{
                         objectFit: "contain",
                         margin: "10px 0",
