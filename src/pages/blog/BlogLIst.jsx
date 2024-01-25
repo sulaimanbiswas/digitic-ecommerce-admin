@@ -55,7 +55,6 @@ const BlogList = () => {
 
   const data = [];
   blogState.forEach((blog, index) => {
-    console.log(blog);
     data.push({
       key: index + 1,
       photo: (

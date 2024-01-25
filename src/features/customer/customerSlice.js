@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import customerService from "./customerService";
 
 const initialState = {
@@ -16,8 +16,6 @@ export const getUsers = createAsyncThunk("customers", async (thunkAPI) => {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
-
-export const resetState = createAction("customers/resetState");
 
 export const customerSlice = createSlice({
   name: "users/get-users",
@@ -39,8 +37,7 @@ export const customerSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.payload;
-      })
-      .addCase(resetState, () => initialState);
+      });
   },
 });
 

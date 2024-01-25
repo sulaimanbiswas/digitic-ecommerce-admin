@@ -31,7 +31,7 @@ export const createColor = createAsyncThunk(
   }
 );
 
-export const resetState = createAction("colors/resetState");
+export const resetStateColor = createAction("colors/resetState");
 
 export const colorSlice = createSlice({
   name: "color",
@@ -70,7 +70,7 @@ export const colorSlice = createSlice({
         state.isSuccess = false;
         state.message = action.payload;
       })
-      .addCase(resetState, () => initialState);
+      .addCase(resetStateColor, () => initialState);
   },
 });
 

@@ -8,9 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import CustomInput from "../../components/CustomInput";
-import { createBlog, resetState } from "../../features/blog/blogSlice";
+import { createBlog, resetStateBlog } from "../../features/blog/blogSlice";
 import { getBlogCategories } from "../../features/blogCategory/blogCategorySlice";
-import { deleteImage, uploadImages } from "../../features/upload/uploadSlice";
+import {
+  deleteImage,
+  resetStateUpload,
+  uploadImages,
+} from "../../features/upload/uploadSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Title is required"),
@@ -73,14 +77,24 @@ const AddBlog = () => {
       toast.dismiss();
       formik.resetForm();
       toast.success("Blog created successfully");
-      resetState();
+      dispatch(resetStateBlog());
+      dispatch(resetStateUpload());
       navigate("/admin/blogs");
     }
     if (isError) {
       toast.dismiss();
       toast.error(message);
     }
-  }, [isLoading, isSuccess, isError, message, formik, navigate, createdBlog]);
+  }, [
+    isLoading,
+    dispatch,
+    isSuccess,
+    isError,
+    message,
+    formik,
+    navigate,
+    createdBlog,
+  ]);
 
   const img = [];
   imgState.forEach((item) => {
@@ -98,13 +112,16 @@ const AddBlog = () => {
 
   const onDrop = useCallback(
     (acceptedFiles) => {
-      try {
+      if (imgState.length > 0) {
+        imgState.forEach((item) => {
+          dispatch(deleteImage(item.public_id));
+        });
         dispatch(uploadImages(acceptedFiles));
-      } catch (error) {
-        toast.error("Images upload failed");
+      } else {
+        dispatch(uploadImages(acceptedFiles));
       }
     },
-    [dispatch]
+    [dispatch, imgState]
   );
 
   const { getRootProps, getInputProps } = useDropzone({

@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import CustomInput from "../../components/CustomInput";
-import { createBlogCategory } from "../../features/blogCategory/blogCategorySlice";
+import {
+  createBlogCategory,
+  resetState,
+} from "../../features/blogCategory/blogCategorySlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Blog category title is required"),
@@ -38,6 +41,7 @@ const AddBlogCategory = () => {
       toast.success("Blog category added successfully");
       navigate("/admin/blog-categories");
       formik.resetForm();
+      resetState();
     }
     if (isError) {
       toast.dismiss();

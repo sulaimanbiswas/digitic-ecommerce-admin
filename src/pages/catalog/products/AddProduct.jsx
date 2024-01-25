@@ -13,9 +13,13 @@ import CustomInput from "../../../components/CustomInput";
 import { getBrands } from "../../../features/brand/brandSlice";
 import { getCategories } from "../../../features/category/categorySlice";
 import { getColors } from "../../../features/color/colorSlice";
-import { createProduct } from "../../../features/product/productSlice";
+import {
+  createProduct,
+  resetStateProduct,
+} from "../../../features/product/productSlice";
 import {
   deleteImage,
+  resetStateUpload,
   uploadImages,
 } from "../../../features/upload/uploadSlice";
 
@@ -98,15 +102,25 @@ const AddProduct = () => {
     if (isSuccess && !isError && !isLoading && createdProduct) {
       setColor([]);
       setTag([]);
-      navigate("/admin/products");
       toast.dismiss();
+      dispatch(resetStateUpload());
+      dispatch(resetStateProduct());
       toast.success("Product created successfully");
+      navigate("/admin/products");
     }
     if (isError) {
       toast.dismiss();
       toast.error(message);
     }
-  }, [navigate, isLoading, isSuccess, isError, createdProduct, message]);
+  }, [
+    navigate,
+    dispatch,
+    isLoading,
+    isSuccess,
+    isError,
+    createdProduct,
+    message,
+  ]);
 
   const colorOptions = [];
   colorState.forEach((item) => {
@@ -167,13 +181,16 @@ const AddProduct = () => {
 
   const onDrop = useCallback(
     (acceptedFiles) => {
-      try {
+      if (imgState.length > 0) {
+        imgState.forEach((item) => {
+          dispatch(deleteImage(item.public_id));
+        });
         dispatch(uploadImages(acceptedFiles));
-      } catch (error) {
-        toast.error("Images upload failed");
+      } else {
+        dispatch(uploadImages(acceptedFiles));
       }
     },
-    [dispatch]
+    [dispatch, imgState]
   );
 
   const { getRootProps, getInputProps } = useDropzone({

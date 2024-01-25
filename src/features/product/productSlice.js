@@ -31,7 +31,7 @@ export const createProduct = createAsyncThunk(
   }
 );
 
-export const resetState = createAction("products/resetState");
+export const resetStateProduct = createAction("products/resetState");
 
 export const productSlice = createSlice({
   name: "product",
@@ -46,7 +46,6 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.createdProduct = "";
         state.products = action.payload;
       })
       .addCase(getProducts.rejected, (state, action) => {
@@ -70,7 +69,7 @@ export const productSlice = createSlice({
         state.isSuccess = false;
         state.message = action.payload;
       })
-      .addCase(resetState, () => initialState);
+      .addCase(resetStateProduct, () => initialState);
   },
 });
 

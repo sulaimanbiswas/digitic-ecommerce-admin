@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authService from "./authService";
 
 const getUserFromLocalStorage = localStorage.getItem("user")
@@ -24,6 +24,8 @@ export const login = createAsyncThunk(
   }
 );
 
+export const resetStateAuth = createAction("auth/resetState");
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -37,12 +39,14 @@ export const authSlice = createSlice({
       state.isSuccess = true;
       state.user = action.payload;
     });
-    builder.addCase(login.rejected, (state, action) => {
-      state.isLoading = false;
-      state.isError = true;
-      state.user = null;
-      state.message = action.payload;
-    });
+    builder
+      .addCase(login.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.user = null;
+        state.message = action.payload;
+      })
+      .addCase(resetStateAuth, () => initialState);
   },
 });
 

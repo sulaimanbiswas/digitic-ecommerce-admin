@@ -31,7 +31,7 @@ export const createCategory = createAsyncThunk(
   }
 );
 
-export const resetState = createAction("categories/resetState");
+export const resetStateCategory = createAction("categories/resetState");
 
 export const categorySlice = createSlice({
   name: "category",
@@ -70,7 +70,7 @@ export const categorySlice = createSlice({
         state.isSuccess = false;
         state.message = action.payload;
       })
-      .addCase(resetState, () => initialState);
+      .addCase(resetStateCategory, () => initialState);
   },
 });
 

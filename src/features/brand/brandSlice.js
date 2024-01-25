@@ -31,7 +31,7 @@ export const createBrand = createAsyncThunk(
   }
 );
 
-export const resetState = createAction("brands/resetState");
+export const resetStateBrand = createAction("brands/resetState");
 
 export const brandSlice = createSlice({
   name: "brand",
@@ -47,7 +47,6 @@ export const brandSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.brands = action.payload;
-        state.createdBrand = "";
       })
       .addCase(getBrands.rejected, (state, action) => {
         state.isLoading = false;
@@ -70,7 +69,7 @@ export const brandSlice = createSlice({
         state.isSuccess = false;
         state.message = action.payload;
       })
-      .addCase(resetState, () => initialState);
+      .addCase(resetStateBrand, () => initialState);
   },
 });
 

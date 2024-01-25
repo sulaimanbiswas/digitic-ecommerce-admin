@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import CustomInput from "../../../components/CustomInput";
-import { createBrand } from "../../../features/brand/brandSlice";
+import {
+  createBrand,
+  resetStateBrand,
+} from "../../../features/brand/brandSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Brand title is required"),
@@ -35,14 +38,24 @@ const AddBrand = () => {
     if (isSuccess && createdBrand) {
       toast.dismiss();
       toast.success("Brand added successfully");
-      navigate("/admin/brands");
+      dispatch(resetStateBrand());
       formik.resetForm();
+      navigate("/admin/brands");
     }
     if (isError) {
       toast.dismiss();
       toast.error(message);
     }
-  }, [isLoading, isSuccess, message, navigate, formik, isError, createdBrand]);
+  }, [
+    isLoading,
+    dispatch,
+    isSuccess,
+    message,
+    navigate,
+    formik,
+    isError,
+    createdBrand,
+  ]);
 
   return (
     <div>

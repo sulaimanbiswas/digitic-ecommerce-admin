@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import CustomInput from "../../../components/CustomInput";
-import { createColor } from "../../../features/color/colorSlice";
+import {
+  createColor,
+  resetStateColor,
+} from "../../../features/color/colorSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Color code is required"),
@@ -36,13 +39,23 @@ const AddColor = () => {
       toast.dismiss();
       toast.success("Color added successfully");
       navigate("/admin/colors");
+      dispatch(resetStateColor());
       formik.resetForm();
     }
     if (isError) {
       toast.dismiss();
       toast.error(message);
     }
-  }, [isLoading, isSuccess, message, navigate, formik, isError, createdColor]);
+  }, [
+    isLoading,
+    dispatch,
+    isSuccess,
+    message,
+    navigate,
+    formik,
+    isError,
+    createdColor,
+  ]);
   return (
     <div>
       <h3 className="mb-4 title">Add Color</h3>

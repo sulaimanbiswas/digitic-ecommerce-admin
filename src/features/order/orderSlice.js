@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import orderService from "./orderService";
 
 const initialState = {
@@ -16,8 +16,6 @@ export const getOrders = createAsyncThunk("orders", async (thunkAPI) => {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
-
-export const resetState = createAction("orders/resetState");
 
 export const orderSlice = createSlice({
   name: "order",
@@ -39,8 +37,7 @@ export const orderSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.payload;
-      })
-      .addCase(resetState, () => initialState);
+      });
   },
 });
 

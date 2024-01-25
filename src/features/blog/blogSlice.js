@@ -28,7 +28,7 @@ export const createBlog = createAsyncThunk(
   }
 );
 
-export const resetState = createAction("blogs/resetState");
+export const resetStateBlog = createAction("blogs/resetState");
 
 export const blogSlice = createSlice({
   name: "blog",
@@ -67,7 +67,7 @@ export const blogSlice = createSlice({
         state.isSuccess = false;
         state.message = action.payload;
       })
-      .addCase(resetState, () => initialState);
+      .addCase(resetStateBlog, () => initialState);
   },
 });
 

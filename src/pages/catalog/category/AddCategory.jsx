@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import CustomInput from "../../../components/CustomInput";
-import { createCategory } from "../../../features/category/categorySlice";
+import {
+  createCategory,
+  resetStateCategory,
+} from "../../../features/category/categorySlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Category title is required"),
@@ -37,6 +40,7 @@ const AddCategory = () => {
       toast.dismiss();
       toast.success("Category added successfully");
       navigate("/admin/categories");
+      dispatch(resetStateCategory());
       formik.resetForm();
     }
     if (isError) {
@@ -51,6 +55,7 @@ const AddCategory = () => {
     formik,
     isError,
     createdCategory,
+    dispatch,
   ]);
 
   return (
