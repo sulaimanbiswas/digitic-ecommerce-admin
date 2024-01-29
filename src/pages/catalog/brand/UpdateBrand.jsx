@@ -2,21 +2,24 @@ import { useFormik } from "formik";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import CustomInput from "../../../components/CustomInput";
 import {
-  createBrand,
+  getBrand,
   resetStateBrand,
+  updateBrand,
 } from "../../../features/brand/brandSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Brand title is required"),
 });
 
-const AddBrand = () => {
+const UpdateBrand = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const brandId = location.pathname.split("/")[3];
 
   const formik = useFormik({
     initialValues: {
@@ -24,22 +27,36 @@ const AddBrand = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      dispatch(createBrand(values));
+      dispatch(updateBrand({ id: brandId, brand: values }));
     },
   });
 
-  const newBrand = useSelector((state) => state.brand);
-  const { isSuccess, isError, isLoading, createdBrand, message } = newBrand;
+  useEffect(() => {
+    document.title = "Update Brand - Admin";
+    dispatch(getBrand(brandId));
+  }, [dispatch, brandId]);
+
+  const brandState = useSelector((state) => state.brand);
+  const { brandTitle, updatedBrand, isSuccess, isError, isLoading, message } =
+    brandState;
+
+  useEffect(() => {
+    formik.setFieldValue("title", brandTitle);
+  }, [brandTitle]);
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Adding brand...");
-    }
-    if (isSuccess && createdBrand) {
       toast.dismiss();
-      toast.success("Brand added successfully");
-      dispatch(resetStateBrand());
+      toast.loading("Updating brand...");
+    }
+    if (isSuccess) {
+      toast.dismiss();
+    }
+    if (isSuccess && updatedBrand) {
+      toast.dismiss();
+      toast.success("Brand updated successfully");
       formik.resetForm();
+      dispatch(resetStateBrand());
       navigate("/admin/brands");
     }
     if (isError) {
@@ -47,19 +64,19 @@ const AddBrand = () => {
       toast.error(message);
     }
   }, [
-    isLoading,
     dispatch,
+    updatedBrand,
+    isLoading,
     isSuccess,
+    isError,
     message,
     navigate,
     formik,
-    isError,
-    createdBrand,
   ]);
 
   return (
     <div>
-      <h3 className="mb-4 title">Add Brand</h3>
+      <h3 className="mb-4 title">Update Brand</h3>
       <div className="">
         <form
           action=""
@@ -73,7 +90,7 @@ const AddBrand = () => {
               label="Enter Brand Title"
               name="title"
               value={formik.values.title}
-              i_id="title"
+              id="title"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
@@ -83,7 +100,7 @@ const AddBrand = () => {
           </div>
           <div className="">
             <button type="submit" className="btn btn-success py-2 px-4">
-              Add Brand
+              Update Brand
             </button>
           </div>
         </form>
@@ -92,4 +109,4 @@ const AddBrand = () => {
   );
 };
 
-export default AddBrand;
+export default UpdateBrand;

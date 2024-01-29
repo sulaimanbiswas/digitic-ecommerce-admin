@@ -9,6 +9,28 @@ const initialState = {
   message: "",
 };
 
+export const createBrand = createAsyncThunk(
+  "brands/createBrand",
+  async (brand, thunkAPI) => {
+    try {
+      return await brandService.createBrand(brand);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const updateBrand = createAsyncThunk(
+  "brands/updateBrand",
+  async ({ id, brand }, thunkAPI) => {
+    try {
+      return await brandService.updateBrand(id, brand);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const getBrands = createAsyncThunk(
   "brands/getBrands",
   async (thunkAPI) => {
@@ -20,11 +42,11 @@ export const getBrands = createAsyncThunk(
   }
 );
 
-export const createBrand = createAsyncThunk(
-  "brands/createBrand",
-  async (brand, thunkAPI) => {
+export const getBrand = createAsyncThunk(
+  "brands/getBrand",
+  async (id, thunkAPI) => {
     try {
-      return await brandService.createBrand(brand);
+      return await brandService.getBrand(id);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -39,6 +61,21 @@ export const brandSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(createBrand.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createBrand.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.createdBrand = action.payload;
+      })
+      .addCase(createBrand.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload;
+      })
       .addCase(getBrands.pending, (state) => {
         state.isLoading = true;
       })
@@ -54,16 +91,31 @@ export const brandSlice = createSlice({
         state.isSuccess = false;
         state.message = action.payload;
       })
-      .addCase(createBrand.pending, (state) => {
+      .addCase(getBrand.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createBrand.fulfilled, (state, action) => {
+      .addCase(getBrand.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.createdBrand = action.payload;
+        state.brandTitle = action.payload.title;
       })
-      .addCase(createBrand.rejected, (state, action) => {
+      .addCase(getBrand.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload;
+      })
+      .addCase(updateBrand.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateBrand.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.updatedBrand = action.payload;
+      })
+      .addCase(updateBrand.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

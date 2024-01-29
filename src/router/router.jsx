@@ -10,6 +10,7 @@ import BlogCategories from "../pages/blog/BlogCategories";
 import Blogs from "../pages/blog/Blogs";
 import AddBrand from "../pages/catalog/brand/AddBrand";
 import Brands from "../pages/catalog/brand/Brands";
+import UpdateBrand from "../pages/catalog/brand/UpdateBrand";
 import AddCategory from "../pages/catalog/category/AddCategory";
 import Categories from "../pages/catalog/category/Categories";
 import AddColor from "../pages/catalog/color/AddColor";
@@ -60,9 +61,14 @@ const router = createBrowserRouter([
         element: <AddBrand />,
       },
       {
+        path: "brand/:id",
+        element: <UpdateBrand />,
+      },
+      {
         path: "brands",
         element: <Brands />,
       },
+
       {
         path: "add-category",
         element: <AddCategory />,
