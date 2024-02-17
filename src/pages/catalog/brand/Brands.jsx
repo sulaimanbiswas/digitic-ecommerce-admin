@@ -45,7 +45,7 @@ const Brands = () => {
       name: brand.title,
       action: (
         <div className="d-flex gap-1 justify-content-end align-items-center ">
-          <Link to={`/admin/brand/${brand._id}`}>
+          <Link to={`/admin/brands/${brand._id}`}>
             <Button
               type="primary"
               shape="circle"

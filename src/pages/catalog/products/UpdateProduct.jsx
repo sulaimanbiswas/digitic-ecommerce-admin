@@ -3,23 +3,17 @@ import { useFormik } from "formik";
 import { GetColorName } from "hex-color-to-color-name";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import toast from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
 import ReactQuill from "react-quill";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import CustomInput from "../../../components/CustomInput";
 import { getBrands } from "../../../features/brand/brandSlice";
 import { getCategories } from "../../../features/category/categorySlice";
 import { getColors } from "../../../features/color/colorSlice";
-import {
-  createProduct,
-  resetStateProduct,
-} from "../../../features/product/productSlice";
+import { createProduct } from "../../../features/product/productSlice";
 import {
   deleteImage,
-  resetStateUpload,
   uploadImages,
 } from "../../../features/upload/uploadSlice";
 
@@ -59,9 +53,9 @@ const baseStyle = {
   height: "100px",
 };
 
-const AddProduct = () => {
+const UpdateProduct = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const [color, setColor] = useState([]);
   const [tag, setTag] = useState([]);
   const formik = useFormik({
@@ -91,36 +85,7 @@ const AddProduct = () => {
   const categoryState = useSelector((state) => state.category.categories);
   const colorState = useSelector((state) => state.color.colors);
   const imgState = useSelector((state) => state.upload.images);
-  const newProduct = useSelector((state) => state.product);
-
-  const { isSuccess, isError, isLoading, createdProduct, message } = newProduct;
-
-  useEffect(() => {
-    if (isLoading) {
-      toast.loading("Creating product...");
-    }
-    if (isSuccess && !isError && !isLoading && createdProduct) {
-      setColor([]);
-      setTag([]);
-      toast.dismiss();
-      dispatch(resetStateUpload());
-      dispatch(resetStateProduct());
-      toast.success("Product created successfully");
-      navigate("/admin/products");
-    }
-    if (isError) {
-      toast.dismiss();
-      toast.error(message);
-    }
-  }, [
-    navigate,
-    dispatch,
-    isLoading,
-    isSuccess,
-    isError,
-    createdProduct,
-    message,
-  ]);
+  // const productByIdState = useSelector((state) => state.product.productById);
 
   const colorOptions = [];
   colorState.forEach((item) => {
@@ -204,7 +169,6 @@ const AddProduct = () => {
     }),
     []
   );
-
   return (
     <div>
       <h3 className="mb-4 title">Add Product</h3>
@@ -222,8 +186,8 @@ const AddProduct = () => {
               label="Enter Product Name"
               value={formik.values.title}
               i_id="title"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              onChange={formik.handleChange("title")}
+              onBlur={formik.handleBlur("title")}
             />
             {formik.touched.title && formik.errors.title ? (
               <div className="text-danger">{formik.errors.title}</div>
@@ -247,8 +211,8 @@ const AddProduct = () => {
               i_id="price"
               name="price"
               value={formik.values.price}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              onChange={formik.handleChange("price")}
+              onBlur={formik.handleBlur("price")}
             />
             {formik.touched.price && formik.errors.price ? (
               <div className="text-danger">{formik.errors.price}</div>
@@ -257,8 +221,8 @@ const AddProduct = () => {
           <div className="">
             <select
               name="brand"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              onChange={formik.handleChange("brand")}
+              onBlur={formik.handleBlur("brand")}
               value={formik.values.brand}
               className="form-control py-3"
               id=""
@@ -279,8 +243,8 @@ const AddProduct = () => {
           <div className="">
             <select
               name="category"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              onChange={formik.handleChange("category")}
+              onBlur={formik.handleBlur("category")}
               value={formik.values.category}
               className="form-control py-3"
               id=""
@@ -308,7 +272,7 @@ const AddProduct = () => {
               placeholder="Select Colors"
               defaultValue={color}
               onChange={(value) => handleColors(value)}
-              onBlur={formik.handleBlur}
+              onBlur={formik.handleBlur("color")}
               options={colorOptions}
             />
             {formik.touched.color && formik.errors.color ? (
@@ -325,7 +289,7 @@ const AddProduct = () => {
               placeholder="Select Tags"
               defaultValue={tag}
               onChange={(value) => handleTags(value)}
-              onBlur={formik.handleBlur}
+              onBlur={formik.handleBlur("tags")}
               options={tagsOptions}
             />
             {formik.touched.color && formik.errors.color ? (
@@ -341,8 +305,8 @@ const AddProduct = () => {
               required={true}
               name="quantity"
               value={formik.values.quantity}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              onChange={formik.handleChange("quantity")}
+              onBlur={formik.handleBlur("quantity")}
             />
             {formik.touched.quantity && formik.errors.quantity ? (
               <div className="text-danger">{formik.errors.quantity}</div>
@@ -401,4 +365,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default UpdateProduct;

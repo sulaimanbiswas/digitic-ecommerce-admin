@@ -59,7 +59,7 @@ const Colors = () => {
       ),
       action: (
         <div className="d-flex gap-1 justify-content-end align-items-center ">
-          <Link to={`/admin/products/${color._id}`}>
+          <Link to={`/admin/colors/${color._id}`}>
             <Button
               type="primary"
               shape="circle"

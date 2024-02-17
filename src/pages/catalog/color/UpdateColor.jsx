@@ -6,20 +6,19 @@ import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import CustomInput from "../../../components/CustomInput";
 import {
-  getBrand,
-  resetStateBrand,
-  updateBrand,
-} from "../../../features/brand/brandSlice";
+  resetStateColor,
+  updateColor,
+} from "../../../features/color/colorSlice";
 
 let schema = yup.object().shape({
-  title: yup.string().required("Brand title is required"),
+  title: yup.string().required("Color title is required"),
 });
 
-const UpdateBrand = () => {
+const UpdateColor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const brandId = location.pathname.split("/")[3];
+  const colorId = location.pathname.split("/")[3];
 
   const formik = useFormik({
     initialValues: {
@@ -27,56 +26,56 @@ const UpdateBrand = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      dispatch(updateBrand({ id: brandId, brand: values }));
+      dispatch(updateColor({ id: colorId, color: values }));
     },
   });
 
   useEffect(() => {
-    document.title = "Update Brand - Admin";
-    dispatch(getBrand(brandId));
-  }, [dispatch, brandId]);
+    document.title = "Update Color - Admin";
+  }, []);
 
-  const brandState = useSelector((state) => state.brand);
-  const { brandById, updatedBrand, isSuccess, isError, isLoading, message } =
-    brandState;
+  const colorState = useSelector((state) => state.color);
+  const { colorById, updatedColor, isSuccess, isError, isLoading, message } =
+    colorState;
 
   useEffect(() => {
-    formik.setFieldValue("title", brandById?.title);
-  }, [brandById]);
+    formik.setFieldValue("title", colorById?.title);
+  }, [colorById]);
 
   useEffect(() => {
     if (isLoading) {
       toast.dismiss();
-      toast.loading("Updating brand...");
+      toast.loading("Updating color...");
     }
     if (isSuccess) {
       toast.dismiss();
     }
-    if (isSuccess && updatedBrand) {
+    if (isSuccess && updatedColor) {
       toast.dismiss();
-      toast.success("Brand updated successfully");
+      toast.success("Color updated successfully");
       formik.resetForm();
-      dispatch(resetStateBrand());
-      navigate("/admin/brands");
+      dispatch(resetStateColor());
+      navigate("/admin/colors");
     }
     if (isError) {
       toast.dismiss();
       toast.error(message);
+      dispatch(resetStateColor());
     }
   }, [
-    dispatch,
-    updatedBrand,
-    isLoading,
     isSuccess,
     isError,
+    isLoading,
+    updatedColor,
     message,
-    navigate,
+    dispatch,
     formik,
+    navigate,
   ]);
 
   return (
     <div>
-      <h3 className="mb-4 title">Update Brand</h3>
+      <h3 className="mb-4 title">Update Color</h3>
       <div className="">
         <form
           action=""
@@ -86,11 +85,11 @@ const UpdateBrand = () => {
         >
           <div className="">
             <CustomInput
-              type="text"
-              label="Enter Brand Title"
+              type={"color"}
+              label={"Enter Color Code"}
               name="title"
               value={formik.values.title}
-              id="title"
+              i_id="title"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
@@ -100,7 +99,7 @@ const UpdateBrand = () => {
           </div>
           <div className="">
             <button type="submit" className="btn btn-success py-2 px-4">
-              Update Brand
+              Update Color
             </button>
           </div>
         </form>
@@ -109,4 +108,4 @@ const UpdateBrand = () => {
   );
 };
 
-export default UpdateBrand;
+export default UpdateColor;

@@ -15,8 +15,10 @@ import AddCategory from "../pages/catalog/category/AddCategory";
 import Categories from "../pages/catalog/category/Categories";
 import AddColor from "../pages/catalog/color/AddColor";
 import Colors from "../pages/catalog/color/Colors";
+import UpdateColor from "../pages/catalog/color/UpdateColor";
 import AddProduct from "../pages/catalog/products/AddProduct";
 import Products from "../pages/catalog/products/Products";
+import UpdateProduct from "../pages/catalog/products/updateProduct";
 import Customers from "../pages/customer/Customers";
 import Enquires from "../pages/enquiry/Enquires";
 import AddCoupon from "../pages/marketing/AddCoupon";
@@ -57,11 +59,15 @@ const router = createBrowserRouter([
         element: <Products />,
       },
       {
+        path: "products/:id",
+        element: <UpdateProduct />,
+      },
+      {
         path: "add-brand",
         element: <AddBrand />,
       },
       {
-        path: "brand/:id",
+        path: "brands/:id",
         element: <UpdateBrand />,
       },
       {
@@ -84,6 +90,10 @@ const router = createBrowserRouter([
       {
         path: "colors",
         element: <Colors />,
+      },
+      {
+        path: "colors/:id",
+        element: <UpdateColor />,
       },
       {
         path: "orders",
