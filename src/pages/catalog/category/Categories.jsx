@@ -45,7 +45,7 @@ const Categories = () => {
       name: category.title,
       action: (
         <div className="d-flex gap-1 justify-content-end align-items-center ">
-          <Link to={`/admin/products/${category._id}`}>
+          <Link to={`/admin/categories/${category._id}`}>
             <Button
               type="primary"
               shape="circle"

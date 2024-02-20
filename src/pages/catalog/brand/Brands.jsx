@@ -1,11 +1,17 @@
 import { Button, Table } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { IoTrashOutline } from "react-icons/io5";
 import { RiEditLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import sortBy from "sort-by";
-import { getBrands } from "../../../features/brand/brandSlice";
+import CustomModal from "../../../components/CustomModal";
+import {
+  deleteBrand,
+  getBrands,
+  resetStateBrand,
+} from "../../../features/brand/brandSlice";
 
 const columns = [
   {
@@ -31,12 +37,50 @@ const columns = [
 
 const Brands = () => {
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const [id, setId] = useState("");
+  const showModal = (id) => {
+    setOpen(true);
+    setId(id);
+  };
+  const hideModal = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     document.title = "Brands - Admin";
     dispatch(getBrands());
   }, [dispatch]);
 
+  const deletedBrand = (id) => {
+    dispatch(deleteBrand(id));
+    dispatch(getBrands());
+    setOpen(false);
+  };
+
   const brandState = useSelector((state) => state.brand.brands);
+  const deletedBrandState = useSelector((state) => state.brand);
+
+  useEffect(() => {
+    if (deletedBrandState.isLoading) {
+      toast.dismiss();
+      toast.loading("Loading...");
+    }
+    if (deletedBrandState.isError) {
+      console.log("error");
+      toast.dismiss();
+      toast.error(deletedBrandState.message);
+    }
+    if (deletedBrandState.isSuccess && deletedBrandState.deletedBrand) {
+      console.log("success");
+      toast.dismiss();
+      toast.success("Brand deleted successfully");
+      dispatch(getBrands());
+      dispatch(resetStateBrand());
+    }
+    if (brandState) {
+      toast.dismiss();
+    }
+  }, [deletedBrandState, dispatch, brandState]);
 
   const data = [];
   brandState.forEach((brand, index) => {
@@ -57,6 +101,7 @@ const Brands = () => {
             type="primary"
             shape="circle"
             className="d-flex justify-content-center align-items-center bg-danger"
+            onClick={() => showModal(brand._id)}
             icon={<IoTrashOutline style={{ width: "20px" }} />}
           />
         </div>
@@ -68,6 +113,12 @@ const Brands = () => {
     <>
       <h3 className="mb-4 title">Brands</h3>
       <Table columns={columns} dataSource={data} />
+      <CustomModal
+        title="Are you sure want to delete this brand?"
+        hideModal={hideModal}
+        open={open}
+        performAction={() => deletedBrand(id)}
+      />
     </>
   );
 };
