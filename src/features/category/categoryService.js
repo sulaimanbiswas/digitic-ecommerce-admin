@@ -26,11 +26,17 @@ const getCategory = async (id) => {
   return response.data.data;
 };
 
+const deleteCategory = async (id) => {
+  const response = await axios.delete(`${base_url}/category/${id}`, config);
+  return response.data.data;
+};
+
 const categoryService = {
   getCategories,
   updateCategory,
   createCategory,
   getCategory,
+  deleteCategory,
 };
 
 export default categoryService;

@@ -66,19 +66,17 @@ const Brands = () => {
       toast.loading("Loading...");
     }
     if (deletedBrandState.isError) {
-      console.log("error");
       toast.dismiss();
       toast.error(deletedBrandState.message);
     }
+    if (deletedBrandState.isSuccess) {
+      toast.dismiss();
+    }
     if (deletedBrandState.isSuccess && deletedBrandState.deletedBrand) {
-      console.log("success");
       toast.dismiss();
       toast.success("Brand deleted successfully");
       dispatch(getBrands());
       dispatch(resetStateBrand());
-    }
-    if (brandState) {
-      toast.dismiss();
     }
   }, [deletedBrandState, dispatch, brandState]);
 
