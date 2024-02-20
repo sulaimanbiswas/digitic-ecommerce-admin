@@ -51,7 +51,7 @@ const Brands = () => {
     dispatch(getBrands());
   }, [dispatch]);
 
-  const deletedBrand = (id) => {
+  const deletedABrand = (id) => {
     dispatch(deleteBrand(id));
     dispatch(getBrands());
     setOpen(false);
@@ -60,25 +60,36 @@ const Brands = () => {
   const brandState = useSelector((state) => state.brand.brands);
   const deletedBrandState = useSelector((state) => state.brand);
 
+  const { isLoading, isSuccess, isError, message, deletedBrand } =
+    deletedBrandState;
+
   useEffect(() => {
-    if (deletedBrandState.isLoading) {
+    if (isLoading) {
       toast.dismiss();
       toast.loading("Loading...");
     }
-    if (deletedBrandState.isError) {
+    if (isError) {
       toast.dismiss();
-      toast.error(deletedBrandState.message);
+      toast.error(message);
     }
-    if (deletedBrandState.isSuccess) {
+    if (isSuccess) {
       toast.dismiss();
     }
-    if (deletedBrandState.isSuccess && deletedBrandState.deletedBrand) {
+    if (isSuccess && deletedBrand) {
       toast.dismiss();
       toast.success("Brand deleted successfully");
       dispatch(getBrands());
       dispatch(resetStateBrand());
     }
-  }, [deletedBrandState, dispatch, brandState]);
+  }, [
+    isLoading,
+    isSuccess,
+    isError,
+    message,
+    deletedBrand,
+    dispatch,
+    brandState,
+  ]);
 
   const data = [];
   brandState.forEach((brand, index) => {
@@ -115,7 +126,7 @@ const Brands = () => {
         title="Are you sure want to delete this brand?"
         hideModal={hideModal}
         open={open}
-        performAction={() => deletedBrand(id)}
+        performAction={() => deletedABrand(id)}
       />
     </>
   );
