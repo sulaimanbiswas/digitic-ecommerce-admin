@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import CustomInput from "../../../components/CustomInput";
 import {
+  getColor,
   resetStateColor,
   updateColor,
 } from "../../../features/color/colorSlice";
@@ -32,7 +33,8 @@ const UpdateColor = () => {
 
   useEffect(() => {
     document.title = "Update Color - Admin";
-  }, []);
+    dispatch(getColor(colorId));
+  }, [dispatch, colorId]);
 
   const colorState = useSelector((state) => state.color);
   const { colorById, updatedColor, isSuccess, isError, isLoading, message } =

@@ -53,6 +53,17 @@ export const getColor = createAsyncThunk(
   }
 );
 
+export const deleteColor = createAsyncThunk(
+  "colors/deleteColor",
+  async (id, thunkAPI) => {
+    try {
+      return await colorService.deleteColor(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const resetStateColor = createAction("colors/resetState");
 
 export const colorSlice = createSlice({
@@ -117,6 +128,21 @@ export const colorSlice = createSlice({
         state.colorById = action.payload;
       })
       .addCase(getColor.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.payload;
+      })
+      .addCase(deleteColor.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteColor.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.deletedColor = action.payload;
+      })
+      .addCase(deleteColor.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

@@ -73,8 +73,8 @@ const AddColor = () => {
               name="title"
               value={formik.values.title}
               i_id="title"
-              onChange={formik.handleChange("title")}
-              onBlur={formik.handleBlur("title")}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
           </div>
           <div className="">

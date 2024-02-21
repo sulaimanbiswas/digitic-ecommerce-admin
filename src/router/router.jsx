@@ -22,8 +22,9 @@ import Products from "../pages/catalog/products/Products";
 import UpdateProduct from "../pages/catalog/products/updateProduct";
 import Customers from "../pages/customer/Customers";
 import Enquires from "../pages/enquiry/Enquires";
-import AddCoupon from "../pages/marketing/AddCoupon";
-import Coupons from "../pages/marketing/Coupons";
+import AddCoupon from "../pages/marketing/coupon/AddCoupon";
+import Coupons from "../pages/marketing/coupon/Coupons";
+import UpdateCoupon from "../pages/marketing/coupon/UpdateCoupon";
 import Orders from "../pages/order/Orders";
 
 const router = createBrowserRouter([
@@ -115,6 +116,10 @@ const router = createBrowserRouter([
       {
         path: "add-coupon",
         element: <AddCoupon />,
+      },
+      {
+        path: "coupons/:id",
+        element: <UpdateCoupon />,
       },
       {
         path: "blogs",

@@ -2,26 +2,34 @@ import { useFormik } from "formik";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import CustomInput from "../../components/CustomInput";
+import CustomInput from "../../../components/CustomInput";
 import {
-  createCoupon,
+  getCoupon,
   resetStateCoupon,
-} from "../../features/coupon/couponSlice";
+  updateCoupon,
+} from "../../../features/coupon/couponSlice";
 
 let schema = yup.object().shape({
   name: yup
     .string()
     .matches(/^[A-Za-z0-9]+$/, "Coupon code must be alphabetic & numeric")
     .required("Coupon code is required"),
-  discount: yup.number().required("Discount is required"),
+  discount: yup
+    .number()
+    .min(1, "Discount must be at least 0%")
+    .max(100, "Discount must be at most 100%")
+    .required("Discount is required"),
   expiry: yup.date().required("Expiry date is required"),
 });
 
-const AddCoupon = () => {
+const UpdateCoupon = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const couponId = location.pathname.split("/")[3];
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -29,32 +37,60 @@ const AddCoupon = () => {
       expiry: "",
     },
     validationSchema: schema,
+
     onSubmit: (values) => {
-      dispatch(createCoupon(values));
+      dispatch(updateCoupon({ id: couponId, coupon: values }));
     },
   });
 
-  const newCoupon = useSelector((state) => state.coupon);
+  useEffect(() => {
+    document.title = "Update Coupon - Admin";
+    dispatch(getCoupon(couponId));
+  }, [dispatch, couponId]);
 
-  const { isSuccess, isError, isLoading, createdCoupon, message } = newCoupon;
+  const couponState = useSelector((state) => state.coupon);
+  const { couponById, updatedCoupon, isSuccess, isError, isLoading, message } =
+    couponState;
+
+  useEffect(() => {
+    formik.setFieldValue("name", couponById?.name);
+    formik.setFieldValue("discount", couponById?.discount);
+    formik.setFieldValue(
+      "expiry",
+      couponById?.expiry
+        ? new Date(couponById?.expiry).toISOString().split("T")[0]
+        : ""
+    );
+  }, [couponById]);
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Adding coupon...");
+      toast.loading("Updating coupon...");
     }
-    if (isSuccess && createdCoupon) {
+    if (isSuccess) {
       toast.dismiss();
+    }
+    if (isSuccess && updatedCoupon) {
+      toast.dismiss();
+      toast.success("Coupon updated successfully");
       formik.resetForm();
       dispatch(resetStateCoupon());
-      toast.success("Coupon added successfully");
       navigate("/admin/coupons");
     }
     if (isError) {
       toast.dismiss();
       toast.error(message);
     }
-    [isLoading];
-  });
+  }, [
+    dispatch,
+    updatedCoupon,
+    isLoading,
+    isSuccess,
+    isError,
+    message,
+    navigate,
+    formik,
+  ]);
 
   return (
     <div>
@@ -73,8 +109,8 @@ const AddCoupon = () => {
               name="name"
               value={formik.values.name}
               i_id="name"
-              onChange={formik.handleChange("name")}
-              onBlur={formik.handleBlur("name")}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
             {formik.touched.name && formik.errors.name ? (
               <div className="text-danger">{formik.errors.name}</div>
@@ -87,8 +123,8 @@ const AddCoupon = () => {
               name="discount"
               value={formik.values.discount}
               i_id="discount"
-              onChange={formik.handleChange("discount")}
-              onBlur={formik.handleBlur("discount")}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
             {formik.touched.discount && formik.errors.discount ? (
               <div className="text-danger">{formik.errors.discount}</div>
@@ -101,8 +137,8 @@ const AddCoupon = () => {
               name="expiry"
               value={formik.values.expiry}
               i_id="expiry"
-              onChange={formik.handleChange("expiry")}
-              onBlur={formik.handleBlur("expiry")}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
             {formik.touched.expiry && formik.errors.expiry ? (
               <div className="text-danger">{formik.errors.expiry}</div>
@@ -119,4 +155,4 @@ const AddCoupon = () => {
   );
 };
 
-export default AddCoupon;
+export default UpdateCoupon;
