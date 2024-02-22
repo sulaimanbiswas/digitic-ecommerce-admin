@@ -1,11 +1,17 @@
 import { Button, Table } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { IoTrashOutline } from "react-icons/io5";
 import { RiEditLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import sortBy from "sort-by";
-import { getBlogCategories } from "../../features/blogCategory/blogCategorySlice";
+import CustomModal from "../../../components/CustomModal";
+import {
+  deleteBlogCategory,
+  getBlogCategories,
+  resetStateBlogCategory,
+} from "../../../features/blogCategory/blogCategorySlice";
 
 const columns = [
   {
@@ -31,14 +37,52 @@ const columns = [
 
 const BlogCategories = () => {
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const [id, setId] = useState("");
+  const showModal = (id) => {
+    setOpen(true);
+    setId(id);
+  };
+  const hideModal = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     document.title = "Blog Categories - Admin";
     dispatch(getBlogCategories());
   }, [dispatch]);
 
+  const deletedABlogCategory = (id) => {
+    dispatch(deleteBlogCategory(id));
+    setOpen(false);
+  };
+
   const blogCategoryState = useSelector(
     (state) => state.blogCategory.blogCategories
   );
+  const deletedBlogCategoryState = useSelector((state) => state.blogCategory);
+
+  const { isLoading, isSuccess, isError, message, deletedBlogCategory } =
+    deletedBlogCategoryState;
+
+  useEffect(() => {
+    if (isLoading) {
+      toast.dismiss();
+      toast.loading("Deleting blog category...");
+    }
+    if (isSuccess) {
+      toast.dismiss();
+    }
+    if (isSuccess && deletedBlogCategory) {
+      toast.dismiss();
+      toast.success("Blog category deleted successfully");
+      dispatch(resetStateBlogCategory());
+      dispatch(getBlogCategories());
+    }
+    if (isError) {
+      toast.dismiss();
+      toast.error(message);
+    }
+  }, [dispatch, deletedBlogCategory, isLoading, isSuccess, isError, message]);
 
   const data = [];
   blogCategoryState.forEach((blogCategory, index) => {
@@ -47,7 +91,7 @@ const BlogCategories = () => {
       name: blogCategory.title,
       action: (
         <div className="d-flex gap-1 justify-content-end align-items-center ">
-          <Link to={`/admin/blog/categories/${blogCategory._id}`}>
+          <Link to={`/admin/blog-categories/${blogCategory._id}`}>
             <Button
               type="primary"
               shape="circle"
@@ -59,6 +103,7 @@ const BlogCategories = () => {
             type="primary"
             shape="circle"
             className="d-flex justify-content-center align-items-center bg-danger"
+            onClick={() => showModal(blogCategory._id)}
             icon={<IoTrashOutline style={{ width: "20px" }} />}
           />
         </div>
@@ -69,6 +114,12 @@ const BlogCategories = () => {
     <>
       <h3 className="mb-4 title">Blog Categories</h3>
       <Table columns={columns} dataSource={data} />
+      <CustomModal
+        title="Are you sure want to delete this category?"
+        hideModal={hideModal}
+        open={open}
+        performAction={() => deletedABlogCategory(id)}
+      />
     </>
   );
 };

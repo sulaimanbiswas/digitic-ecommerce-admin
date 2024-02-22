@@ -4,10 +4,12 @@ import Dashboard from "../pages/Dashboard";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import Login from "../pages/auth/Login";
 import ResetPassword from "../pages/auth/ResetPassword";
-import AddBlog from "../pages/blog/AddBlog";
-import AddBlogCategory from "../pages/blog/AddBlogCategory";
-import BlogCategories from "../pages/blog/BlogCategories";
-import Blogs from "../pages/blog/Blogs";
+import AddBlog from "../pages/blog/blog/AddBlog";
+import Blogs from "../pages/blog/blog/Blogs";
+import UpdateBlog from "../pages/blog/blog/UpdateBlog";
+import AddBlogCategory from "../pages/blog/category/AddBlogCategory";
+import BlogCategories from "../pages/blog/category/BlogCategories";
+import UpdateBlogCategory from "../pages/blog/category/UpdateBlogCategory";
 import AddBrand from "../pages/catalog/brand/AddBrand";
 import Brands from "../pages/catalog/brand/Brands";
 import UpdateBrand from "../pages/catalog/brand/UpdateBrand";
@@ -106,10 +108,6 @@ const router = createBrowserRouter([
         element: <Orders />,
       },
       {
-        path: "add-blog",
-        element: <AddBlog />,
-      },
-      {
         path: "coupons",
         element: <Coupons />,
       },
@@ -122,12 +120,24 @@ const router = createBrowserRouter([
         element: <UpdateCoupon />,
       },
       {
+        path: "add-blog",
+        element: <AddBlog />,
+      },
+      {
+        path: "blogs/:id",
+        element: <UpdateBlog />,
+      },
+      {
         path: "blogs",
         element: <Blogs />,
       },
       {
         path: "add-blog-category",
         element: <AddBlogCategory />,
+      },
+      {
+        path: "blog-categories/:id",
+        element: <UpdateBlogCategory />,
       },
       {
         path: "blog-categories",

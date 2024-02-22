@@ -7,14 +7,14 @@ import ReactQuill from "react-quill";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import CustomInput from "../../components/CustomInput";
-import { createBlog, resetStateBlog } from "../../features/blog/blogSlice";
-import { getBlogCategories } from "../../features/blogCategory/blogCategorySlice";
+import CustomInput from "../../../components/CustomInput";
+import { createBlog, resetStateBlog } from "../../../features/blog/blogSlice";
+import { getBlogCategories } from "../../../features/blogCategory/blogCategorySlice";
 import {
   deleteImage,
   resetStateUpload,
   uploadImages,
-} from "../../features/upload/uploadSlice";
+} from "../../../features/upload/uploadSlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Title is required"),

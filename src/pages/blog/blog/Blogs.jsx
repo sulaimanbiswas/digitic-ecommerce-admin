@@ -6,7 +6,7 @@ import { RiEditLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import sortBy from "sort-by";
-import { getBlogs } from "../../features/blog/blogSlice";
+import { getBlogs } from "../../../features/blog/blogSlice";
 
 const columns = [
   {

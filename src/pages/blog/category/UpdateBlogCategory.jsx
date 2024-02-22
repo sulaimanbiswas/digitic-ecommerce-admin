@@ -2,64 +2,89 @@ import { useFormik } from "formik";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import CustomInput from "../../components/CustomInput";
+import CustomInput from "../../../components/CustomInput";
 import {
-  createBlogCategory,
-  resetState,
-} from "../../features/blogCategory/blogCategorySlice";
+  getBlogCategory,
+  resetStateBlogCategory,
+  updateBlogCategory,
+} from "../../../features/blogCategory/blogCategorySlice";
 
 let schema = yup.object().shape({
   title: yup.string().required("Blog category title is required"),
 });
 
-const AddBlogCategory = () => {
+const UpdateBlogCategory = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const blogCategoryId = location.pathname.split("/")[3];
+
   const formik = useFormik({
     initialValues: {
       title: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      dispatch(createBlogCategory(values));
+      dispatch(
+        updateBlogCategory({ id: blogCategoryId, blogCategory: values })
+      );
     },
   });
 
-  const newBlogCategory = useSelector((state) => state.blogCategory);
+  useEffect(() => {
+    document.title = "Update Blog Category - Admin";
+    dispatch(getBlogCategory(blogCategoryId));
+  }, [dispatch, blogCategoryId]);
 
-  const { isSuccess, isError, isLoading, createdBlogCategory, message } =
-    newBlogCategory;
+  const blogCategoryState = useSelector((state) => state.blogCategory);
+  const {
+    getBlogCategoryById,
+    updatedBlogCategory,
+    isSuccess,
+    isError,
+    isLoading,
+    message,
+  } = blogCategoryState;
+
+  useEffect(() => {
+    formik.setFieldValue("title", getBlogCategoryById?.title);
+  }, [getBlogCategoryById]);
 
   useEffect(() => {
     if (isLoading) {
-      toast.loading("Adding blog category...");
-    }
-    if (isSuccess && createdBlogCategory) {
       toast.dismiss();
-      toast.success("Blog category added successfully");
-      navigate("/admin/blog-categories");
+      toast.loading("Updating blog category...");
+    }
+    if (isSuccess) {
+      toast.dismiss();
+    }
+    if (isSuccess && updatedBlogCategory) {
+      toast.dismiss();
+      toast.success("Blog category updated successfully");
       formik.resetForm();
-      resetState();
+      dispatch(resetStateBlogCategory());
+      navigate("/admin/blog-categories");
     }
     if (isError) {
       toast.dismiss();
       toast.error(message);
     }
   }, [
+    dispatch,
+    formik,
+    navigate,
+    updatedBlogCategory,
     isLoading,
     isSuccess,
-    message,
-    navigate,
-    formik,
     isError,
-    createdBlogCategory,
+    message,
   ]);
 
   return (
     <div>
-      <h3 className="mb-4 title">Add Blog Category</h3>
+      <h3 className="mb-4 title">Update Blog Category</h3>
       <div className="">
         <form
           action=""
@@ -74,8 +99,8 @@ const AddBlogCategory = () => {
               label="Enter Blog Category Title"
               value={formik.values.title}
               i_id="title"
-              onChange={formik.handleChange("title")}
-              onBlur={formik.handleBlur("title")}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
             {formik.touched.title && formik.errors.title ? (
               <div className="text-danger">{formik.errors.title}</div>
@@ -83,7 +108,7 @@ const AddBlogCategory = () => {
           </div>
           <div className="">
             <button type="submit" className="btn btn-success py-2 px-4">
-              Add Category
+              Update Category
             </button>
           </div>
         </form>
@@ -92,4 +117,4 @@ const AddBlogCategory = () => {
   );
 };
 
-export default AddBlogCategory;
+export default UpdateBlogCategory;
